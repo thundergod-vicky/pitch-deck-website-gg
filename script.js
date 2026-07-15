@@ -422,10 +422,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const pSlide = pptx.addSlide();
 
         // Background
-        pSlide.addShape(pptx.ShapeType.rect, { x: 0, y: 0, w: '100%', h: '100%', fill: { color: BG } });
+        pSlide.addShape(pptx.shapes.RECTANGLE, { x: 0, y: 0, w: '100%', h: '100%', fill: { color: BG } });
         
         // Sidebar accent line (matches brand guide)
-        pSlide.addShape(pptx.ShapeType.rect, { x: 0, y: 0, w: 0.15, h: '100%', fill: { color: ORANGE } });
+        pSlide.addShape(pptx.shapes.RECTANGLE, { x: 0, y: 0, w: 0.15, h: '100%', fill: { color: ORANGE } });
 
         // Gather slide header content
         let eyebrow = slideEl.querySelector('.eyebrow') ? slideEl.querySelector('.eyebrow').innerText.trim() : '';
@@ -478,7 +478,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const card1Bullets = Array.from(card1.querySelectorAll('.comparison-item')).map(el => el.innerText.trim());
 
             // Draw Card 1 Background shape
-            pSlide.addShape(pptx.ShapeType.roundRect, {
+            pSlide.addShape(pptx.shapes.ROUNDED_RECTANGLE, {
               x: 0.5, y: 2.0, w: 5.5, h: 4.5,
               fill: { color: CARD_BG },
               line: { color: 'E2E8F0', width: 1.5 }
@@ -499,7 +499,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const card2Bullets = Array.from(card2.querySelectorAll('.comparison-item')).map(el => el.innerText.trim());
 
             // Draw Card 2 Background shape (with orange border)
-            pSlide.addShape(pptx.ShapeType.roundRect, {
+            pSlide.addShape(pptx.shapes.ROUNDED_RECTANGLE, {
               x: 6.8, y: 2.0, w: 5.5, h: 4.5,
               fill: { color: CARD_BG },
               line: { color: ORANGE, width: 2 }
@@ -532,14 +532,14 @@ document.addEventListener('DOMContentLoaded', () => {
               const cardX = 0.5 + j * (cardWidth + gap);
 
               // Draw Step Card shape
-              pSlide.addShape(pptx.ShapeType.roundRect, {
+              pSlide.addShape(pptx.shapes.ROUNDED_RECTANGLE, {
                 x: cardX, y: 2.2, w: cardWidth, h: 4.2,
                 fill: { color: 'F1F5F9' },
                 line: { color: 'CBD5E1', width: 1 }
               });
 
               // Step number circle representation
-              pSlide.addShape(pptx.ShapeType.oval, {
+              pSlide.addShape(pptx.shapes.OVAL, {
                 x: cardX + (cardWidth - 0.6) / 2, y: 2.5, w: 0.6, h: 0.6,
                 fill: { color: ORANGE }
               });
@@ -595,7 +595,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 colY = 2.0 + Math.floor(j / 3) * 2.3;
               }
 
-              pSlide.addShape(pptx.ShapeType.roundRect, {
+              pSlide.addShape(pptx.shapes.ROUNDED_RECTANGLE, {
                 x: colX, y: colY, w: colWidth, h: 2.1,
                 fill: { color: CARD_BG },
                 line: { color: 'E2E8F0', width: 1 }
@@ -645,7 +645,7 @@ document.addEventListener('DOMContentLoaded', () => {
               const meta = card.querySelector('.sector-meta') ? card.querySelector('.sector-meta').innerText.trim() : '';
               
               const cardX = 0.5 + j * (cardWidth + gap);
-              pSlide.addShape(pptx.ShapeType.roundRect, {
+              pSlide.addShape(pptx.shapes.ROUNDED_RECTANGLE, {
                 x: cardX, y: 2.2, w: cardWidth, h: 4.0,
                 fill: { color: CARD_BG },
                 line: { color: ORANGE, width: 1.5 }
