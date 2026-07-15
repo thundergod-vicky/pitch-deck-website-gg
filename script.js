@@ -348,10 +348,24 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3. Add capture-mode class so CSS unlocks the container
     document.body.classList.add('export-capture-mode');
 
-    // 4. Inject a temporary stylesheet to force remove background pseudo-element balls
+    // 4. Inject a temporary stylesheet to force remove background pseudo-element balls and blurs
     const tempStyle = document.createElement('style');
     tempStyle.id = 'temp-export-style';
-    tempStyle.innerHTML = '.slide::before, .slide::after { display: none !important; }';
+    tempStyle.innerHTML = `
+      .slide::before, .slide::after { display: none !important; }
+      .slide-content {
+        opacity: 1 !important;
+        transform: scale(1) !important;
+        background: #ffffff !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+      }
+      .media-container, .pillar-card, .roadmap-card, .comparison-card, .marketing-flow-card, .sector-card {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        background: rgba(255, 255, 255, 0.95) !important;
+      }
+    `;
     document.head.appendChild(tempStyle);
 
     // Small delay to let CSS repaint

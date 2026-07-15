@@ -1905,3 +1905,25 @@ body.export-capture-mode .slide::before,
 body.export-capture-mode .slide::after {
   display: none !important;
 }
+
+/* Force all slides to be fully visible, active, and high-contrast during capture */
+body.export-capture-mode .slide-content {
+  opacity: 1 !important;
+  transform: scale(1) !important;
+  background: #ffffff !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Remove glassmorphism blurs on inner elements for clear screenshot text resolution */
+body.export-capture-mode .media-container,
+body.export-capture-mode .pillar-card,
+body.export-capture-mode .roadmap-card,
+body.export-capture-mode .comparison-card,
+body.export-capture-mode .marketing-flow-card,
+body.export-capture-mode .sector-card {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
