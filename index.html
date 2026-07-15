@@ -1,0 +1,1422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="GrowGlobal Strategies - AI for Enterprise: Explore sector-specific AI automation solutions for Restaurants, Real Estate, Forestry and Jewellery businesses.">
+  <meta name="author" content="GrowGlobal Strategies">
+  <meta property="og:title" content="GrowGlobal | AI for Enterprise Pitch Deck">
+  <meta property="og:description" content="AI Agents, CRM Automation, and Industry-Specific ERP solutions by GrowGlobal Strategies.">
+  <meta property="og:type" content="website">
+  <title>GrowGlobal Strategies | AI for Enterprise Pitch Deck</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <!-- html2pdf for PDF export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <!-- PptxGenJS for PPTX export -->
+  <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+</head>
+<body>
+
+  <!-- Left Sidebar (GitPages Index Panel) -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <a href="#" class="logo-wrap">
+        <svg class="logo-icon" viewBox="0 0 24 24">
+          <path d="M12 2L2 22h20L12 2zm0 4.5l6.5 12h-13L12 6.5z" />
+        </svg>
+        <div class="logo-text">GrowGlobal <span>Strategies</span></div>
+      </a>
+      <div class="sidebar-meta">AI for Enterprise // Pitch Deck</div>
+    </div>
+
+    <!-- Navigation links (Common + Sector specific shown dynamically) -->
+    <nav class="sidebar-nav">
+      <!-- Common Links -->
+      <button class="nav-item active" data-target="0">
+        <span class="nav-item-num">01</span> Cover
+      </button>
+      <button class="nav-item" data-target="1">
+        <span class="nav-item-num">02</span> About Us
+      </button>
+      <button class="nav-item" data-target="2">
+        <span class="nav-item-num">03</span> AI for Sales
+      </button>
+      <button class="nav-item" data-target="3">
+        <span class="nav-item-num">04</span> AI for Service
+      </button>
+      <button class="nav-item" data-target="4" id="nav-selector">
+        <span class="nav-item-num">05</span> Select Sector
+      </button>
+
+      <!-- Restaurant Sector Slides -->
+      <button class="nav-item sector-nav" data-target="5" data-sector="restaurant" style="display: none;">
+        <span class="nav-item-num">06</span> Restaurant FOH Orders
+      </button>
+      <button class="nav-item" data-target="6" data-sector="restaurant" style="display: none;">
+        <span class="nav-item-num">07</span> Restaurant FOH Promo
+      </button>
+      <button class="nav-item" data-target="7" data-sector="restaurant" style="display: none;">
+        <span class="nav-item-num">08</span> Restaurant BOH Stock
+      </button>
+      <button class="nav-item" data-target="8" data-sector="restaurant" style="display: none;">
+        <span class="nav-item-num">09</span> Restaurant BOH Labor
+      </button>
+      <button class="nav-item" data-target="9" data-sector="restaurant" style="display: none;">
+        <span class="nav-item-num">10</span> Restaurant Enterprise Layer
+      </button>
+      <button class="nav-item" data-target="10" data-sector="restaurant" style="display: none;">
+        <span class="nav-item-num">11</span> Restaurant Dining Flow
+      </button>
+
+      <!-- Real Estate Sector Slides -->
+      <button class="nav-item sector-nav" data-target="11" data-sector="real-estate" style="display: none;">
+        <span class="nav-item-num">06</span> Real Estate Sales
+      </button>
+      <button class="nav-item" data-target="12" data-sector="real-estate" style="display: none;">
+        <span class="nav-item-num">07</span> Real Estate Service
+      </button>
+
+      <!-- Forestry Sector Slides -->
+      <button class="nav-item sector-nav" data-target="13" data-sector="forestry" style="display: none;">
+        <span class="nav-item-num">06</span> Forestry Sales
+      </button>
+      <button class="nav-item" data-target="14" data-sector="forestry" style="display: none;">
+        <span class="nav-item-num">07</span> Forestry Service
+      </button>
+
+      <!-- Jewellery Sector Slides (Detailed PDF Deck) -->
+      <button class="nav-item sector-nav" data-target="15" data-sector="jewellery" style="display: none;">
+        <span class="nav-item-num">06</span> Partner Profile
+      </button>
+      <button class="nav-item" data-target="16" data-sector="jewellery" style="display: none;">
+        <span class="nav-item-num">07</span> Industry Problem
+      </button>
+      <button class="nav-item" data-target="17" data-sector="jewellery" style="display: none;">
+        <span class="nav-item-num">08</span> Unified Platform
+      </button>
+      <button class="nav-item" data-target="18" data-sector="jewellery" style="display: none;">
+        <span class="nav-item-num">09</span> Sales Guide
+      </button>
+      <button class="nav-item" data-target="19" data-sector="jewellery" style="display: none;">
+        <span class="nav-item-num">10</span> Personal Marketing
+      </button>
+      <button class="nav-item" data-target="20" data-sector="jewellery" style="display: none;">
+        <span class="nav-item-num">11</span> Repair Journey
+      </button>
+      <button class="nav-item" data-target="21" data-sector="jewellery" style="display: none;">
+        <span class="nav-item-num">12</span> Inventory Tracking
+      </button>
+      <button class="nav-item" data-target="22" data-sector="jewellery" style="display: none;">
+        <span class="nav-item-num">13</span> Predictive Analytics
+      </button>
+      <button class="nav-item" data-target="23" data-sector="jewellery" style="display: none;">
+        <span class="nav-item-num">14</span> Agent Team
+      </button>
+      <button class="nav-item" data-target="24" data-sector="jewellery" style="display: none;">
+        <span class="nav-item-num">15</span> ROI Compounding
+      </button>
+      <button class="nav-item" data-target="25" data-sector="jewellery" style="display: none;">
+        <span class="nav-item-num">16</span> The Numbers
+      </button>
+      <button class="nav-item" data-target="26" data-sector="jewellery" style="display: none;">
+        <span class="nav-item-num">17</span> 12-Week Rollout
+      </button>
+      <button class="nav-item" data-target="27" data-sector="jewellery" style="display: none;">
+        <span class="nav-item-num">18</span> Why Choose Us
+      </button>
+      <button class="nav-item" data-target="28" data-sector="jewellery" style="display: none;">
+        <span class="nav-item-num">19</span> Day in the Life
+      </button>
+
+      <!-- Concluding Common Links -->
+      <button class="nav-item" data-target="29" id="nav-crm">
+        <span class="nav-item-num">08</span> CRM Blueprint
+      </button>
+      <button class="nav-item" data-target="30" id="nav-discovery">
+        <span class="nav-item-num">09</span> Booking
+      </button>
+    </nav>
+
+    <!-- Reset Sector Selection button -->
+    <button class="reset-sector-btn" id="reset-sector" style="display: none;">
+      <i class="bi bi-arrow-left-short"></i> Reset Sector Selection
+    </button>
+
+    <!-- Export Actions Toolbar -->
+    <div class="export-toolbar">
+      <div class="export-toolbar-label"><i class="bi bi-download"></i> Export Deck</div>
+      <div class="export-toolbar-buttons">
+        <button class="export-btn" id="export-pdf-btn" title="Export as PDF">
+          <i class="bi bi-file-earmark-pdf-fill"></i>
+          <span>PDF</span>
+        </button>
+        <button class="export-btn export-btn-pptx" id="export-pptx-btn" title="Export as PowerPoint">
+          <i class="bi bi-file-earmark-slides-fill"></i>
+          <span>PPTX</span>
+        </button>
+      </div>
+      <div class="export-status" id="export-status"></div>
+    </div>
+  </aside>
+
+  <!-- Right Main Stage (Slideshow Container) -->
+  <main class="slideshow-container">
+
+    <!-- Slide 1: Welcome & Landing (Common) -->
+    <section class="slide slide-hero active" data-index="0">
+      <div class="slide-content">
+        <div class="slide-body">
+          <div class="brand-badge">
+            <i class="bi bi-cpu"></i> AI BUSINESS AUTOMATION
+          </div>
+          <h1 class="slide-title">
+            Scaling Operations with <span class="highlight-orange">Enterprise AI</span>
+          </h1>
+          <p class="slide-desc">
+            GrowGlobal Strategies empowers startups, MSMEs, and enterprises to streamline business workflows, automate customer care, and scale globally.
+          </p>
+          <a href="#" class="cta-button" onclick="document.querySelector('.slide[data-index=\'4\']').scrollIntoView({behavior: 'smooth'}); return false;">
+            Explore Verticals
+            <i class="bi bi-arrow-right-short" style="font-size: 20px;"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 2: About Us (Common) -->
+    <section class="slide" data-index="1">
+      <div class="slide-content">
+        <div class="slide-body">
+          <span class="eyebrow">About GrowGlobal</span>
+          <h2 class="slide-title">About <span>Our Company</span></h2>
+          <p class="slide-desc">
+            GrowGlobal helps businesses operate like global powerhouses through AI-powered CRM, invoicing, and SaaS integration systems.
+          </p>
+          <div class="pillars-grid">
+            <div class="pillar-card">
+              <div class="pillar-card-title"><i class="bi bi-robot text-orange"></i> AI Core Solutions</div>
+              <p class="pillar-card-desc">
+                Building bespoke AI agents, automated WhatsApp workflows, and 24/7 intelligent voice bots that handle repetitive operational tasks.
+              </p>
+            </div>
+            <div class="pillar-card">
+              <div class="pillar-card-title"><i class="bi bi-layers text-blue"></i> SaaS Product Ecosystem</div>
+              <p class="pillar-card-desc">
+                Developer of <strong>TryJewel</strong> (Jewellery ERP), <strong>DrutaSign</strong> (E-signatures), <strong>GLL.ONE</strong> (Link tracking), and <strong>GrowInvoice</strong> (Billing automation).
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="slide-media">
+          <div class="media-container media-container-img">
+            <img src="images/1.png" alt="GrowGlobal Ecosystem Diagram" class="slide-real-img" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 3: How AI Agents Transform Business - Sales (Common) -->
+    <section class="slide" data-index="2">
+      <div class="slide-content">
+        <div class="slide-body">
+          <span class="eyebrow">Pillars</span>
+          <h2 class="slide-title">How AI Agents Scale <span>Your Sales</span></h2>
+          <p class="slide-desc">
+            Autonomous software agents work 24/7 inside your CRM to qualify leads, write outreach follow-ups, and book sales calls.
+          </p>
+          <ul class="feature-list">
+            <li class="feature-item">
+              <div class="feature-icon-wrapper">
+                <i class="bi bi-graph-up-arrow"></i>
+              </div>
+              <div class="feature-text">
+                <strong>Intent Lead Scoring</strong>
+                <span>AI tracks traffic habits, scoring potential clients based on viewing history to alert your sales reps instantly.</span>
+              </div>
+            </li>
+            <li class="feature-item">
+              <div class="feature-icon-wrapper">
+                <i class="bi bi-whatsapp"></i>
+              </div>
+              <div class="feature-text">
+                <strong>WhatsApp & Chat Automation</strong>
+                <span>Qualify outbound cold traffic automatically using custom messaging pipelines to drive response conversions.</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="slide-media">
+          <div class="media-container media-container-img">
+            <img src="images/2.png" alt="AI Agents Real Results Dashboard" class="slide-real-img" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 4: How AI Agents Scale Service (Common) -->
+    <section class="slide" data-index="3">
+      <div class="slide-content">
+        <div class="slide-body">
+          <span class="eyebrow">Pillars</span>
+          <h2 class="slide-title">How AI Agents Scale <span>Your Service</span></h2>
+          <p class="slide-desc">
+            AI-driven workflows automate ticket routing, email inquiries, and CRM data logging, reducing customer response backlogs.
+          </p>
+          <ul class="feature-list">
+            <li class="feature-item blue-theme">
+              <div class="feature-icon-wrapper">
+                <i class="bi bi-telephone-inbound"></i>
+              </div>
+              <div class="feature-text">
+                <strong>24/7 Conversational Voice Support</strong>
+                <span>Resolve support queries and booking operations on phone channels using intelligent voice AI agents.</span>
+              </div>
+            </li>
+            <li class="feature-item blue-theme">
+              <div class="feature-icon-wrapper">
+                <i class="bi bi-file-earmark-text"></i>
+              </div>
+              <div class="feature-text">
+                <strong>Intelligent Document Parsing</strong>
+                <span>Extract transaction logs, leases, and contract forms automatically, updating core business databases.</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="slide-media">
+          <div class="media-container media-container-img">
+            <img src="images/4.png" alt="Service Automated 24/7 AI Agent" class="slide-real-img" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 5: Sector Selector Dashboard (Common) -->
+    <section class="slide" data-index="4" id="sector-selector-slide">
+      <div class="slide-content" style="grid-template-columns: 1fr; max-width: 900px; text-align: center;">
+        <div class="slide-body" style="align-items: center;">
+          <span class="eyebrow">Interactive Deck</span>
+          <h2 class="slide-title">Select <span>Your Industry Sector</span></h2>
+          <p class="slide-desc" style="max-width: 600px; margin-bottom: 30px;">
+            Choose a sector below to explore custom AI use-cases. This will customize the remaining slides of this pitch deck.
+          </p>
+          <div class="sector-grid">
+            <button class="sector-card" data-select-sector="restaurant">
+              <div class="sector-icon"><i class="bi bi-egg-fried text-orange"></i></div>
+              <div class="sector-name">Restaurant (F&B)</div>
+              <div class="sector-meta">FOH Agents, BOH Yield & Legacy Sync</div>
+            </button>
+            <button class="sector-card" data-select-sector="real-estate">
+              <div class="sector-icon"><i class="bi bi-house-door text-blue"></i></div>
+              <div class="sector-name">Real Estate</div>
+              <div class="sector-meta">MLS Integration & Voice Qualifying</div>
+            </button>
+            <button class="sector-card" data-select-sector="forestry">
+              <div class="sector-icon"><i class="bi bi-tree text-green" style="color: #10B981;"></i></div>
+              <div class="sector-name">Forestry & GIS</div>
+              <div class="sector-meta">LiDAR Mapping & Logistics ERP</div>
+            </button>
+            <button class="sector-card" data-select-sector="jewellery">
+              <div class="sector-icon"><i class="bi bi-gem text-purple" style="color: #8B5CF6;"></i></div>
+              <div class="sector-name">Jewellery ERP</div>
+              <div class="sector-meta">TryJewel Platform & PDF Blueprint</div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- DETAILED RESTAURANT SECTION (ELABORATED)     -->
+    <!-- ============================================ -->
+
+    <!-- Restaurant Slide 1: FOH Orders (Slide Index 5) -->
+    <section class="slide sector-slide" data-index="5" data-sector="restaurant" style="display: none;">
+      <div class="slide-content" style="grid-template-columns: 1fr; max-width: 940px;">
+        <div class="slide-body">
+          <span class="eyebrow">Front of House - Orders</span>
+          <h2 class="slide-title">Front of House: <span>Voice & Conversational AI</span></h2>
+          <div class="comparison-layout">
+            <div class="comparison-card today-card">
+              <h3 class="comparison-title">TODAY (Missed Revenue)</h3>
+              <ul class="comparison-list">
+                <li class="comparison-item"><i class="bi bi-x-circle-fill"></i> Busy, short-handed staff miss phone calls.</li>
+                <li class="comparison-item"><i class="bi bi-x-circle-fill"></i> Unanswered web queries during peak rushes.</li>
+                <li class="comparison-item"><i class="bi bi-x-circle-fill"></i> Long drive-thru queues & abandoned guest orders.</li>
+                <li class="comparison-item"><i class="bi bi-x-circle-fill"></i> Floor staff distracted by handling phone calls.</li>
+              </ul>
+              <div class="comparison-footer">Lost Orders • Strained Staff • Queues</div>
+            </div>
+            
+            <div class="comparison-arrow">
+              <i class="bi bi-arrow-right-circle-fill"></i>
+            </div>
+            
+            <div class="comparison-card ai-card">
+              <h3 class="comparison-title">WITH AI SOLUTIONS</h3>
+              <ul class="comparison-list">
+                <li class="comparison-item"><i class="bi bi-check-circle-fill"></i> Omnichannel Agentic AI handles multiple calls simultaneously.</li>
+                <li class="comparison-item"><i class="bi bi-check-circle-fill"></i> Automated WhatsApp orders and reservations 24/7.</li>
+                <li class="comparison-item"><i class="bi bi-check-circle-fill"></i> Orders auto-sync straight to Point-of-Sale (POS).</li>
+                <li class="comparison-item"><i class="bi bi-check-circle-fill"></i> Handles basic allergen / FAQ routing automatically.</li>
+              </ul>
+              <div class="comparison-footer">100% Inquiries Handled • Higher Speed • Happier Staff</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Restaurant Slide 2: FOH Personalization (Slide Index 6) -->
+    <section class="slide sector-slide" data-index="6" data-sector="restaurant" style="display: none;">
+      <div class="slide-content" style="grid-template-columns: 1fr; max-width: 940px;">
+        <div class="slide-body">
+          <span class="eyebrow">Front of House - Personalization</span>
+          <h2 class="slide-title">Front of House: <span>Upsell & Loyalty Engine</span></h2>
+          <div class="comparison-layout">
+            <div class="comparison-card today-card">
+              <h3 class="comparison-title">TODAY (Flat Guest Spend)</h3>
+              <ul class="comparison-list">
+                <li class="comparison-item"><i class="bi bi-x-circle-fill"></i> Generic "one-size-fits-all" mobile app deals.</li>
+                <li class="comparison-item"><i class="bi bi-x-circle-fill"></i> Rigid loyalty structures that fail to drive volume.</li>
+                <li class="comparison-item"><i class="bi bi-x-circle-fill"></i> Static menus ignore shifting consumer tastes.</li>
+                <li class="comparison-item"><i class="bi bi-x-circle-fill"></i> Missed cross-sell opportunities at check-out.</li>
+              </ul>
+              <div class="comparison-footer">Flat Order Value • Unused Coupons • Low Loyalty</div>
+            </div>
+            
+            <div class="comparison-arrow">
+              <i class="bi bi-arrow-right-circle-fill"></i>
+            </div>
+            
+            <div class="comparison-card ai-card">
+              <h3 class="comparison-title">WITH AI SOLUTIONS</h3>
+              <ul class="comparison-list">
+                <li class="comparison-item"><i class="bi bi-check-circle-fill"></i> AI dynamic kiosks personalize the guest order.</li>
+                <li class="comparison-item"><i class="bi bi-check-circle-fill"></i> Connects past CRM history to active recommendations.</li>
+                <li class="comparison-item"><i class="bi bi-check-circle-fill"></i> Smart upsell pairings based on guest profile.</li>
+                <li class="comparison-item"><i class="bi bi-check-circle-fill"></i> Average order value boosted by <strong>12% to 18%</strong>.</li>
+              </ul>
+              <div class="comparison-footer">12-18% Higher Ticket • Dynamic Menu • High Loyalty</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Restaurant Slide 3: BOH Stock (Slide Index 7) -->
+    <section class="slide sector-slide" data-index="7" data-sector="restaurant" style="display: none;">
+      <div class="slide-content" style="grid-template-columns: 1fr; max-width: 940px;">
+        <div class="slide-body">
+          <span class="eyebrow">Back of House - Operations</span>
+          <h2 class="slide-title">Back of House: <span>Predictive Inventory</span></h2>
+          <div class="comparison-layout">
+            <div class="comparison-card today-card">
+              <h3 class="comparison-title">TODAY (Capital Bleed)</h3>
+              <ul class="comparison-list">
+                <li class="comparison-item"><i class="bi bi-x-circle-fill"></i> Managers guess prep lists on basic historic averages.</li>
+                <li class="comparison-item"><i class="bi bi-x-circle-fill"></i> Severe overstocking leads to perishable spoilage.</li>
+                <li class="comparison-item"><i class="bi bi-x-circle-fill"></i> Spoilage directly eats away thin restaurant margins.</li>
+                <li class="comparison-item"><i class="bi bi-x-circle-fill"></i> Stockouts cause menu item shortages during rushes.</li>
+              </ul>
+              <div class="comparison-footer">High Perishable Waste • Stockouts • Margin Leak</div>
+            </div>
+            
+            <div class="comparison-arrow">
+              <i class="bi bi-arrow-right-circle-fill"></i>
+            </div>
+            
+            <div class="comparison-card ai-card">
+              <h3 class="comparison-title">WITH AI SOLUTIONS</h3>
+              <ul class="comparison-list">
+                <li class="comparison-item"><i class="bi bi-check-circle-fill"></i> ML models ingest sales, weather, and calendar events.</li>
+                <li class="comparison-item"><i class="bi bi-check-circle-fill"></i> Predicts exact prep list volumes needed per shift.</li>
+                <li class="comparison-item"><i class="bi bi-check-circle-fill"></i> Reduces daily kitchen waste by up to <strong>25%</strong>.</li>
+                <li class="comparison-item"><i class="bi bi-check-circle-fill"></i> Decreases stockouts by <strong>90%</strong> via auto-replenish.</li>
+              </ul>
+              <div class="comparison-footer">25% Less Waste • 90% Fewer Stockouts • Safe Margins</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Restaurant Slide 4: BOH Labor (Slide Index 8) -->
+    <section class="slide sector-slide" data-index="8" data-sector="restaurant" style="display: none;">
+      <div class="slide-content" style="grid-template-columns: 1fr; max-width: 940px;">
+        <div class="slide-body">
+          <span class="eyebrow">Back of House - Workforce</span>
+          <h2 class="slide-title">Back of House: <span>Workforce & Kitchen Sync</span></h2>
+          <div class="comparison-layout">
+            <div class="comparison-card today-card">
+              <h3 class="comparison-title">TODAY (Erratic Labor)</h3>
+              <ul class="comparison-list">
+                <li class="comparison-item"><i class="bi bi-x-circle-fill"></i> Overstaffing on slow shifts wastes labor capital.</li>
+                <li class="comparison-item"><i class="bi bi-x-circle-fill"></i> Understaffing unexpected rushes causes ticket delays.</li>
+                <li class="comparison-item"><i class="bi bi-x-circle-fill"></i> Kitchen errors, food safety risks, and staff burnout.</li>
+                <li class="comparison-item"><i class="bi bi-x-circle-fill"></i> Chefs overwhelmed by uneven ticket display routing.</li>
+              </ul>
+              <div class="comparison-footer">Labor Capital Waste • Delay Penalties • Staff Burnout</div>
+            </div>
+            
+            <div class="comparison-arrow">
+              <i class="bi bi-arrow-right-circle-fill"></i>
+            </div>
+            
+            <div class="comparison-card ai-card">
+              <h3 class="comparison-title">WITH AI SOLUTIONS</h3>
+              <ul class="comparison-list">
+                <li class="comparison-item"><i class="bi bi-check-circle-fill"></i> AI references predictive demand to build precise schedules.</li>
+                <li class="comparison-item"><i class="bi bi-check-circle-fill"></i> Reduces total workforce labor costs by <strong>5% to 10%</strong>.</li>
+                <li class="comparison-item"><i class="bi bi-check-circle-fill"></i> Smart Kitchen Display (KDS) load balances tickets.</li>
+                <li class="comparison-item"><i class="bi bi-check-circle-fill"></i> Equalizes preparation times against chef workloads.</li>
+              </ul>
+              <div class="comparison-footer">5-10% Labor Savings • Faster Cooking • High Throughput</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Restaurant Slide 5: Enterprise Layer (Slide Index 9) -->
+    <section class="slide sector-slide" data-index="9" data-sector="restaurant" style="display: none;">
+      <div class="slide-content">
+        <div class="slide-body">
+          <span class="eyebrow">Enterprise Operations - Integration</span>
+          <h2 class="slide-title">Unified AI Layer <span>& Automated Auditing</span></h2>
+          <p class="slide-desc" style="margin-bottom: 20px;">
+            Connecting siloed legacy software and monitoring compliance automatically.
+          </p>
+          <div class="pillars-grid" style="gap: 16px;">
+            <div class="pillar-card" style="padding: 16px;">
+              <div class="pillar-card-title"><i class="bi bi-plugin text-orange"></i> Toast & Lightspeed Connectors</div>
+              <p class="pillar-card-desc" style="font-size: 12.5px;">Bridges old legacy POS and inventory data into a single AI brain securely.</p>
+            </div>
+            <div class="pillar-card" style="padding: 16px;">
+              <div class="pillar-card-title"><i class="bi bi-receipt-cutoff text-blue"></i> Automated Vendor Audits</div>
+              <p class="pillar-card-desc" style="font-size: 12.5px;">Matches invoices auto-checking taxes, VAT rules, and purchase margins.</p>
+            </div>
+            <div class="pillar-card" style="grid-column: 1 / span 2; padding: 16px;">
+              <div class="pillar-card-title"><i class="bi bi-thermometer-half text-purple" style="color: #8B5CF6;"></i> Food Safety & IoT Compliance Sensor Audits</div>
+              <p class="pillar-card-desc" style="font-size: 12.5px;">Uses computer vision and IoT sensor logs to audit cold storage temps 24/7, maintaining compliance.</p>
+            </div>
+          </div>
+        </div>
+        <div class="slide-media">
+          <div class="media-container media-container-img">
+            <img src="images/5.png" alt="One AI Layer All Your Systems Integration Diagram" class="slide-real-img" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Restaurant Slide 6: Service Flow (Slide Index 10) -->
+    <section class="slide sector-slide" data-index="10" data-sector="restaurant" style="display: none;">
+      <div class="slide-content" style="grid-template-columns: 1fr; max-width: 960px;">
+        <div class="slide-body" style="align-items: center;">
+          <span class="eyebrow">Restaurant F&B</span>
+          <h2 class="slide-title">A Dining Journey <span>Customers Love</span></h2>
+          
+          <div class="repair-flow-timeline">
+            <div class="repair-flow-step">
+              <div class="repair-flow-icon-wrap"><i class="bi bi-qr-code-scan"></i></div>
+              <div class="repair-flow-text">Guest Scans<br>QR Code<br><span style="font-size: 8.5px; color: var(--color-text-muted); font-weight:500;">Speeds up table turns by 18%</span></div>
+            </div>
+            
+            <div class="repair-flow-arrow">→</div>
+            
+            <div class="repair-flow-step">
+              <div class="repair-flow-icon-wrap"><i class="bi bi-sparkles"></i></div>
+              <div class="repair-flow-text">AI Recommends<br>Dishes<br><span style="font-size: 8.5px; color: var(--color-text-muted); font-weight:500;">Increases ticket value by 30%</span></div>
+            </div>
+            
+            <div class="repair-flow-arrow">→</div>
+            
+            <div class="repair-flow-step">
+              <div class="repair-flow-icon-wrap"><i class="bi bi-fire"></i></div>
+              <div class="repair-flow-text">Order Routed<br>to Kitchen<br><span style="font-size: 8.5px; color: var(--color-text-muted); font-weight:500;">Saves kitchen errors by 20%</span></div>
+            </div>
+            
+            <div class="repair-flow-arrow">→</div>
+            
+            <div class="repair-flow-step">
+              <div class="repair-flow-icon-wrap"><i class="bi bi-egg-fried"></i></div>
+              <div class="repair-flow-text">Food Prepared<br>Fresh<br><span style="font-size: 8.5px; color: var(--color-text-muted); font-weight:500;">Cuts overproduction waste by 50%</span></div>
+            </div>
+            
+            <div class="repair-flow-arrow">→</div>
+            
+            <div class="repair-flow-step">
+              <div class="repair-flow-icon-wrap"><i class="bi bi-credit-card-2-back-fill"></i></div>
+              <div class="repair-flow-text">Digital Bill<br>Delivered<br><span style="font-size: 8.5px; color: var(--color-text-muted); font-weight:500;">Delivered via WhatsApp chat</span></div>
+            </div>
+            
+            <div class="repair-flow-arrow">→</div>
+            
+            <div class="repair-flow-step">
+              <div class="repair-flow-icon-wrap"><i class="bi bi-star-fill"></i></div>
+              <div class="repair-flow-text">Feedback<br>Collected<br><span style="font-size: 8.5px; color: var(--color-text-muted); font-weight:500;">Boosts repeat visits by 25%</span></div>
+            </div>
+          </div>
+          
+          <p class="slide-desc" style="text-align: center; margin-top: 36px; font-style: italic; font-size: 14px; color: var(--color-text-muted);">
+            Seamless dining. Automated operations.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- END OF DETAILED RESTAURANT SECTION           -->
+    <!-- ============================================ -->
+
+    <!-- Slide 11: Real Estate Sales -->
+    <section class="slide sector-slide" data-index="11" data-sector="real-estate" style="display: none;">
+      <div class="slide-content">
+        <div class="slide-body">
+          <span class="eyebrow">Real Estate</span>
+          <h2 class="slide-title">Real Estate <span class="highlight-orange">Lead Engine</span></h2>
+          <p class="slide-desc">
+            Scoring property queries and automating client qualification with voice bots.
+          </p>
+          <ul class="feature-list">
+            <li class="feature-item">
+              <div class="feature-icon-wrapper">
+                <i class="bi bi-crosshair"></i>
+              </div>
+              <div class="feature-text">
+                <strong>Property Search Intent Tracker</strong>
+                <span>Qualify property views, pricing, and locations to highlight serious buyers immediately.</span>
+              </div>
+            </li>
+            <li class="feature-item">
+              <div class="feature-icon-wrapper">
+                <i class="bi bi-mic"></i>
+              </div>
+              <div class="feature-text">
+                <strong>Automated Voice Pre-Qualifying</strong>
+                <span>Breeze AI and Ylopo voice bots qualify lead mortgage limits and timelines before agent follow-ups.</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="slide-media">
+          <div class="media-container">
+            <div class="memphis-shape triangle-orange"></div>
+            <svg class="svg-illustration" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M50 110l50-35 50 35v35H50v-35z" fill="var(--glass-bg)" stroke="var(--glass-border)" stroke-width="2" />
+              <rect x="88" y="118" width="24" height="27" fill="var(--color-orange)" fill-opacity="0.1" stroke="var(--color-orange)" stroke-width="1.5" />
+              <circle cx="100" cy="50" r="10" fill="var(--color-yellow)" fill-opacity="0.2" stroke="var(--color-yellow)" stroke-width="1.5" />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 12: Real Estate Service -->
+    <section class="slide sector-slide" data-index="12" data-sector="real-estate" style="display: none;">
+      <div class="slide-content">
+        <div class="slide-body">
+          <span class="eyebrow">Real Estate</span>
+          <h2 class="slide-title">Real Estate <span class="highlight-blue">Operations</span></h2>
+          <p class="slide-desc">
+            Retrieving MLS data, logging maintenance requests, and scheduling listing tours in natural language.
+          </p>
+          <ul class="feature-list">
+            <li class="feature-item blue-theme">
+              <div class="feature-icon-wrapper">
+                <i class="bi bi-search"></i>
+              </div>
+              <div class="feature-text">
+                <strong>Linear AIDA Agent for MLS</strong>
+                <span>Allows brokers to look up property fees and schedule show times using conversational chat commands.</span>
+              </div>
+            </li>
+            <li class="feature-item blue-theme">
+              <div class="feature-icon-wrapper">
+                <i class="bi bi-receipt"></i>
+              </div>
+              <div class="feature-text">
+                <strong>Contract & Document Parser</strong>
+                <span>Extract lease data, compliance clauses, and disclosures directly into brokerage software records.</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="slide-media">
+          <div class="media-container">
+            <div class="memphis-shape circle-yellow"></div>
+            <svg class="svg-illustration" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="40" y="40" width="120" height="120" rx="12" fill="var(--glass-bg)" stroke="var(--glass-border)" stroke-width="2" />
+              <line x1="60" y1="70" x2="140" y2="70" stroke="var(--color-blue)" stroke-width="2" stroke-linecap="round" />
+              <line x1="60" y1="95" x2="120" y2="95" stroke="var(--glass-border)" stroke-width="1.5" />
+              <line x1="60" y1="120" x2="100" y2="120" stroke="var(--glass-border)" stroke-width="1.5" />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 13: Forestry Sales -->
+    <section class="slide sector-slide" data-index="13" data-sector="forestry" style="display: none;">
+      <div class="slide-content">
+        <div class="slide-body">
+          <span class="eyebrow">Forestry & GIS</span>
+          <h2 class="slide-title">Forestry Sales <span class="highlight-orange">Integration</span></h2>
+          <p class="slide-desc">
+            Bridging GIS databases with customer accounts to optimize log selling.
+          </p>
+          <ul class="feature-list">
+            <li class="feature-item">
+              <div class="feature-icon-wrapper">
+                <i class="bi bi-database-gear"></i>
+              </div>
+              <div class="feature-text">
+                <strong>Sales 360 Dashboards</strong>
+                <span>Integrate Snowflake timber balances with Salesforce CRM, giving sales reps instant pricing visibility.</span>
+              </div>
+            </li>
+            <li class="feature-item">
+              <div class="feature-icon-wrapper">
+                <i class="bi bi-tree"></i>
+              </div>
+              <div class="feature-text">
+                <strong>Assortment Yield Prediction</strong>
+                <span>Model wood grading volume before felling, matching harvests with active customer contracts.</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="slide-media">
+          <div class="media-container">
+            <div class="memphis-shape wavy-blue"></div>
+            <svg class="svg-illustration" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M50 140l20-40 20 40H50z" fill="rgba(16,185,129,0.15)" stroke="#10B981" stroke-width="1.5" />
+              <path d="M110 140l20-50 20 50h-40z" fill="rgba(16,185,129,0.15)" stroke="#10B981" stroke-width="1.5" />
+              <line x1="30" y1="140" x2="170" y2="140" stroke="var(--color-text-main)" stroke-width="2" />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 14: Forestry Service -->
+    <section class="slide sector-slide" data-index="14" data-sector="forestry" style="display: none;">
+      <div class="slide-content">
+        <div class="slide-body">
+          <span class="eyebrow">Forestry & GIS</span>
+          <h2 class="slide-title">Forest Service & <span class="highlight-blue">GIS Logistics</span></h2>
+          <p class="slide-desc">
+            Mapping forest compartments and automating logging with Trimble SilvaPRO and ForestX.
+          </p>
+          <ul class="feature-list">
+            <li class="feature-item blue-theme">
+              <div class="feature-icon-wrapper">
+                <i class="bi bi-map"></i>
+              </div>
+              <div class="feature-text">
+                <strong>Trimble SilvaPRO GIS Mapping</strong>
+                <span>Connect truck scaling logs and dispatch lines with geographic maps for forest logistics coordination.</span>
+              </div>
+            </li>
+            <li class="feature-item blue-theme">
+              <div class="feature-icon-wrapper">
+                <i class="bi bi-radar"></i>
+              </div>
+              <div class="feature-text">
+                <strong>LiDAR Maps for Automation</strong>
+                <span>Map precise forest grades using LiDAR databases to prepare compartment logistics for harvesting.</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="slide-media">
+          <div class="media-container">
+            <div class="memphis-shape circle-yellow"></div>
+            <svg class="svg-illustration" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="100" cy="100" r="50" fill="var(--glass-bg)" stroke="var(--glass-border)" stroke-width="2" />
+              <line x1="100" y1="40" x2="100" y2="160" stroke="var(--color-blue)" stroke-width="1.5" stroke-dasharray="3 3" />
+              <line x1="40" y1="100" x2="160" y2="100" stroke="var(--color-blue)" stroke-width="1.5" stroke-dasharray="3 3" />
+              <circle cx="100" cy="100" r="25" stroke="var(--color-blue)" stroke-width="1.5" />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- DETAILED JEWELLERY SECTION (PDF DATA SOURCE) -->
+    <!-- ============================================ -->
+
+    <!-- Jewellery Slide 1: Partner Profile -->
+    <section class="slide sector-slide" data-index="15" data-sector="jewellery" style="display: none;">
+      <div class="slide-content" style="grid-template-columns: 1fr; max-width: 940px;">
+        <div class="slide-body">
+          <span class="eyebrow">Your AI Transformation Partner</span>
+          <h2 class="slide-title">Your AI <span>Transformation Partner</span></h2>
+          <p class="slide-desc" style="margin-bottom: 24px;">
+            AI Consulting | AI Agents | Automation | Cloud | ERP Integration | Business Intelligence
+          </p>
+          <div class="pillars-grid">
+            <div class="pillar-card">
+              <div class="pillar-card-title"><i class="bi bi-shield-check text-orange"></i> Enterprise AI Solutions</div>
+              <p class="pillar-card-desc">Bank-grade security and scalability built specifically for growing jewellery retail chains and manufacturers.</p>
+            </div>
+            <div class="pillar-card">
+              <div class="pillar-card-title"><i class="bi bi-gear-wide-connected text-blue"></i> 50+ Workflows Automated</div>
+              <p class="pillar-card-desc">From initial guest lead capture to invoice generation and after-sales repair updates, using proven playbooks.</p>
+            </div>
+            <div class="pillar-card">
+              <div class="pillar-card-title"><i class="bi bi-geo-alt text-green"></i> End-to-End Implementation</div>
+              <p class="pillar-card-desc">Comprehensive strategy consulting, API build-out, custom system integration, and associate training.</p>
+            </div>
+            <div class="pillar-card">
+              <div class="pillar-card-title"><i class="bi bi-gem text-purple"></i> Industry-Specific AI</div>
+              <p class="pillar-card-desc">Purpose-built modules for jewellery workflows: karigar consignment, gold price buffer tracking, and hallmarking logs.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Jewellery Slide 2: Industry Problem -->
+    <section class="slide sector-slide" data-index="16" data-sector="jewellery" style="display: none;">
+      <div class="slide-content" style="grid-template-columns: 1fr; max-width: 940px;">
+        <div class="slide-body">
+          <span class="eyebrow">The Problem</span>
+          <h2 class="slide-title">Why Jewellery Businesses <span>Need AI Now</span></h2>
+          <div class="comparison-layout">
+            <div class="comparison-card today-card">
+              <h3 class="comparison-title">TODAY</h3>
+              <ul class="comparison-list">
+                <li class="comparison-item"><i class="bi bi-x-circle-fill"></i> Manual follow-up on paper logs</li>
+                <li class="comparison-item"><i class="bi bi-x-circle-fill"></i> Scattered receipts & paper records</li>
+                <li class="comparison-item"><i class="bi bi-x-circle-fill"></i> Lost customers due to slow responses</li>
+                <li class="comparison-item"><i class="bi bi-x-circle-fill"></i> Slow sales closures & manual quotes</li>
+                <li class="comparison-item"><i class="bi bi-x-circle-fill"></i> Severe inventory & metal count errors</li>
+              </ul>
+              <div class="comparison-footer">Lost Revenue • Higher Cost • Poor Experience</div>
+            </div>
+            
+            <div class="comparison-arrow">
+              <i class="bi bi-arrow-right-circle-fill"></i>
+            </div>
+            
+            <div class="comparison-card ai-card">
+              <h3 class="comparison-title">WITH AI</h3>
+              <ul class="comparison-list">
+                <li class="comparison-item"><i class="bi bi-check-circle-fill"></i> 24/7 Automated lead qualification</li>
+                <li class="comparison-item"><i class="bi bi-check-circle-fill"></i> Intelligent centralized CRM records</li>
+                <li class="comparison-item"><i class="bi bi-check-circle-fill"></i> Faster follow-ups over WhatsApp</li>
+                <li class="comparison-item"><i class="bi bi-check-circle-fill"></i> Predictive upselling recommendations</li>
+                <li class="comparison-item"><i class="bi bi-check-circle-fill"></i> Personalized, real-time gold valuations</li>
+              </ul>
+              <div class="comparison-footer">Higher Revenue • Lower Cost • Better Experience</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Jewellery Slide 3: Unified Platform -->
+    <section class="slide sector-slide" data-index="17" data-sector="jewellery" style="display: none;">
+      <div class="slide-content">
+        <div class="slide-body">
+          <span class="eyebrow">Unified Platform</span>
+          <h2 class="slide-title">One AI Brain, <span>Every Department Connected</span></h2>
+          <p class="slide-desc" style="margin-bottom: 20px;">
+            A centralized AI system connects every division to optimize inventory flow and automate engagement.
+          </p>
+          <div class="pillars-grid" style="gap: 16px;">
+            <div class="pillar-card" style="padding: 16px;">
+              <div class="pillar-card-title"><i class="bi bi-link-45deg text-orange"></i> Cross-Department Sync</div>
+              <p class="pillar-card-desc" style="font-size: 12.5px;">Bridges sales trends with warehouse stock triggers and finance margins instantly.</p>
+            </div>
+            <div class="pillar-card" style="padding: 16px;">
+              <div class="pillar-card-title"><i class="bi bi-speedometer2 text-blue"></i> Real-Time Dashboard</div>
+              <p class="pillar-card-desc" style="font-size: 12.5px;">Gives managers a single glass screen to monitor staff performance and gold yields.</p>
+            </div>
+          </div>
+        </div>
+        <div class="slide-media">
+          <div class="media-container">
+            <div class="memphis-shape circle-yellow"></div>
+            <!-- Connected AI Brain Stack -->
+            <svg class="svg-illustration" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="100" cy="100" r="30" fill="rgba(0,0,0,0.8)" stroke="var(--color-stroke)" stroke-width="2" />
+              <text x="100" y="104" fill="#FFFFFF" font-family="var(--font-heading)" font-size="8" font-weight="900" text-anchor="middle">AI BRAIN</text>
+              <line x1="100" y1="100" x2="100" y2="40" stroke="var(--color-orange)" stroke-width="1.5" />
+              <line x1="100" y1="100" x2="160" y2="75" stroke="var(--color-orange)" stroke-width="1.5" />
+              <line x1="100" y1="100" x2="140" y2="150" stroke="var(--color-orange)" stroke-width="1.5" />
+              <line x1="100" y1="100" x2="60" y2="150" stroke="var(--color-orange)" stroke-width="1.5" />
+              <line x1="100" y1="100" x2="40" y2="75" stroke="var(--color-orange)" stroke-width="1.5" />
+              
+              <circle cx="100" cy="40" r="14" fill="var(--glass-bg)" stroke="var(--color-blue)" stroke-width="1" />
+              <text x="100" y="43" fill="var(--color-text-main)" font-family="var(--font-body)" font-size="6" font-weight="800" text-anchor="middle">Sales</text>
+              <circle cx="160" cy="75" r="14" fill="var(--glass-bg)" stroke="var(--color-blue)" stroke-width="1" />
+              <text x="160" y="78" fill="var(--color-text-main)" font-family="var(--font-body)" font-size="6" font-weight="800" text-anchor="middle">Market</text>
+              <circle cx="140" cy="150" r="14" fill="var(--glass-bg)" stroke="var(--color-blue)" stroke-width="1" />
+              <text x="140" y="153" fill="var(--color-text-main)" font-family="var(--font-body)" font-size="6" font-weight="800" text-anchor="middle">Invent</text>
+              <circle cx="60" cy="150" r="14" fill="var(--glass-bg)" stroke="var(--color-blue)" stroke-width="1" />
+              <text x="60" y="153" fill="var(--color-text-main)" font-family="var(--font-body)" font-size="6" font-weight="800" text-anchor="middle">Service</text>
+              <circle cx="40" cy="75" r="14" fill="var(--glass-bg)" stroke="var(--color-blue)" stroke-width="1" />
+              <text x="40" y="78" fill="var(--color-text-main)" font-family="var(--font-body)" font-size="6" font-weight="800" text-anchor="middle">Finance</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Jewellery Slide 4: Sales Guide -->
+    <section class="slide sector-slide" data-index="18" data-sector="jewellery" style="display: none;">
+      <div class="slide-content" style="grid-template-columns: 1fr; max-width: 940px;">
+        <div class="slide-body">
+          <span class="eyebrow">Sales</span>
+          <h2 class="slide-title">From Guesswork to <span>a Guided Sale</span></h2>
+          <div class="comparison-layout">
+            <div class="comparison-card today-card">
+              <h3 class="comparison-title">CURRENT SITUATION</h3>
+              <ul class="comparison-list">
+                <li class="comparison-item"><i class="bi bi-x-circle-fill"></i> No customer purchase history at store floor</li>
+                <li class="comparison-item"><i class="bi bi-x-circle-fill"></i> No repeat follow-up for weddings or events</li>
+                <li class="comparison-item"><i class="bi bi-x-circle-fill"></i> Manual quotation calculation (takes 15 mins)</li>
+                <li class="comparison-item"><i class="bi bi-x-circle-fill"></i> Missed upselling and cross-selling targets</li>
+                <li class="comparison-item"><i class="bi bi-x-circle-fill"></i> Inconsistent sales experience across stores</li>
+              </ul>
+            </div>
+            
+            <div class="comparison-arrow">
+              <i class="bi bi-arrow-right-circle-fill"></i>
+            </div>
+            
+            <div class="comparison-card ai-card">
+              <h3 class="comparison-title">AI SOLUTION</h3>
+              <ul class="comparison-list">
+                <li class="comparison-item"><i class="bi bi-check-circle-fill"></i> Customer 360° profile accessible on tablet</li>
+                <li class="comparison-item"><i class="bi bi-check-circle-fill"></i> AI sales assistant suggests hot leads to call</li>
+                <li class="comparison-item"><i class="bi bi-check-circle-fill"></i> Smart recommendations based on style habits</li>
+                <li class="comparison-item"><i class="bi bi-check-circle-fill"></i> Automated follow-up on special anniversaries</li>
+                <li class="comparison-item"><i class="bi bi-check-circle-fill"></i> Instant quotes generated in 2 clicks</li>
+              </ul>
+            </div>
+          </div>
+          <div class="roi-highlight-badge" style="margin-top: 20px;">
+            <div class="roi-highlight-title" style="font-size: 14px; font-weight: 800;">
+              Revenue ↑ • Repeat Sales ↑ • Customer Satisfaction ↑
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Jewellery Slide 5: Personal Marketing -->
+    <section class="slide sector-slide" data-index="19" data-sector="jewellery" style="display: none;">
+      <div class="slide-content" style="grid-template-columns: 1fr; max-width: 940px;">
+        <div class="slide-body">
+          <span class="eyebrow">Marketing</span>
+          <h2 class="slide-title">One Blast vs. <span>a Personal Moment</span></h2>
+          <div class="marketing-flow-layout">
+            <div class="marketing-flow-card today-flow">
+              <h3 class="marketing-flow-title">TODAY</h3>
+              <div class="marketing-flow-box">Customer Database</div>
+              <div class="marketing-flow-arrow">↓</div>
+              <div class="marketing-flow-box">Same SMS to Everyone</div>
+              <div class="marketing-flow-arrow">↓</div>
+              <div class="marketing-flow-box">Same WhatsApp Blast</div>
+              <div class="marketing-flow-arrow">↓</div>
+              <div class="marketing-flow-box">Low Conversion</div>
+            </div>
+            
+            <div class="marketing-flow-card ai-flow">
+              <h3 class="marketing-flow-title">WITH AI</h3>
+              <div class="marketing-flow-box">Customer Data</div>
+              <div class="marketing-flow-arrow">↓</div>
+              <div class="marketing-flow-box">AI Segmentation: Birthday, Anniversary, Wedding, Festival</div>
+              <div class="marketing-flow-arrow">↓</div>
+              <div class="marketing-flow-box">Personalized Offer</div>
+              <div class="marketing-flow-arrow">↓</div>
+              <div class="marketing-flow-box">Higher Conversion</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Jewellery Slide 6: Repair Journey -->
+    <section class="slide sector-slide" data-index="20" data-sector="jewellery" style="display: none;">
+      <div class="slide-content" style="grid-template-columns: 1fr; max-width: 960px;">
+        <div class="slide-body" style="align-items: center;">
+          <span class="eyebrow">After-Sales Service</span>
+          <h2 class="slide-title">A Repair Journey <span>Customers Can Track</span></h2>
+          <div class="repair-flow-timeline">
+            <div class="repair-flow-step">
+              <div class="repair-flow-icon-wrap"><i class="bi bi-gift-fill"></i></div>
+              <div class="repair-flow-text">Customer Gives<br>Jewellery</div>
+            </div>
+            
+            <div class="repair-flow-arrow">→</div>
+            
+            <div class="repair-flow-step">
+              <div class="repair-flow-icon-wrap"><i class="bi bi-clipboard-check-fill"></i></div>
+              <div class="repair-flow-text">Repair Order<br>Created</div>
+            </div>
+            
+            <div class="repair-flow-arrow">→</div>
+            
+            <div class="repair-flow-step">
+              <div class="repair-flow-icon-wrap"><i class="bi bi-cpu"></i></div>
+              <div class="repair-flow-text">AI Tracks<br>Progress</div>
+            </div>
+            
+            <div class="repair-flow-arrow">→</div>
+            
+            <div class="repair-flow-step">
+              <div class="repair-flow-icon-wrap"><i class="bi bi-whatsapp"></i></div>
+              <div class="repair-flow-text">Customer Gets<br>WhatsApp Update</div>
+            </div>
+            
+            <div class="repair-flow-arrow">→</div>
+            
+            <div class="repair-flow-step">
+              <div class="repair-flow-icon-wrap"><i class="bi bi-check-circle-fill"></i></div>
+              <div class="repair-flow-text">Repair<br>Completed</div>
+            </div>
+            
+            <div class="repair-flow-arrow">→</div>
+            
+            <div class="repair-flow-step">
+              <div class="repair-flow-icon-wrap"><i class="bi bi-bell-fill"></i></div>
+              <div class="repair-flow-text">Pickup<br>Reminder</div>
+            </div>
+            
+            <div class="repair-flow-arrow">→</div>
+            
+            <div class="repair-flow-step">
+              <div class="repair-flow-icon-wrap"><i class="bi bi-star-fill"></i></div>
+              <div class="repair-flow-text">Feedback<br>Collected</div>
+            </div>
+          </div>
+          
+          <p class="slide-desc" style="text-align: center; margin-top: 36px; font-style: italic; font-size: 14px; color: var(--color-text-muted);">
+            Simple for the customer. Automatic for the store.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Jewellery Slide 7: Inventory Tracking -->
+    <section class="slide sector-slide" data-index="21" data-sector="jewellery" style="display: none;">
+      <div class="slide-content" style="grid-template-columns: 1fr; max-width: 940px;">
+        <div class="slide-body">
+          <span class="eyebrow">Inventory</span>
+          <h2 class="slide-title">Every Ring, <span>Tracked in Real Time</span></h2>
+          <div class="comparison-layout">
+            <div class="comparison-card today-card">
+              <h3 class="comparison-title">CURRENT</h3>
+              <ul class="comparison-list">
+                <li class="comparison-item"><i class="bi bi-x-circle-fill"></i> Gold Ring catalog logged on manual spreadsheets</li>
+                <li class="comparison-item"><i class="bi bi-x-circle-fill"></i> Manual entry errors on metal and stone weights</li>
+                <li class="comparison-item"><i class="bi bi-x-circle-fill"></i> Pricing errors due to outdated gold spot rate</li>
+                <li class="comparison-item"><i class="bi bi-x-circle-fill"></i> Wrong stock counts during monthly store audits</li>
+                <li class="comparison-item"><i class="bi bi-x-circle-fill"></i> Lost money due to under-valuation of stones</li>
+              </ul>
+            </div>
+            
+            <div class="comparison-arrow">
+              <i class="bi bi-arrow-right-circle-fill"></i>
+            </div>
+            
+            <div class="comparison-card ai-card">
+              <h3 class="comparison-title">WITH AI</h3>
+              <ul class="comparison-list">
+                <li class="comparison-item"><i class="bi bi-check-circle-fill"></i> Photo of gold ring taken by associate tablet</li>
+                <li class="comparison-item"><i class="bi bi-check-circle-fill"></i> AI recognizes item and stone cut instantly</li>
+                <li class="comparison-item"><i class="bi bi-check-circle-fill"></i> Unique barcode assigned and cataloged</li>
+                <li class="comparison-item"><i class="bi bi-check-circle-fill"></i> Inventory & gold pricing updated automatically</li>
+                <li class="comparison-item"><i class="bi bi-check-circle-fill"></i> Live catalog dashboard updated instantly</li>
+              </ul>
+            </div>
+          </div>
+          <div class="roi-highlight-badge" style="margin-top: 20px;">
+            <div class="roi-highlight-title" style="font-size: 13px; font-weight: 800;">
+              One glance tells you exactly what you own — and what it's worth.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Jewellery Slide 8: Predictive Dashboard -->
+    <section class="slide sector-slide" data-index="22" data-sector="jewellery" style="display: none;">
+      <div class="slide-content" style="grid-template-columns: 1fr; max-width: 960px;">
+        <div class="slide-body">
+          <span class="eyebrow">Predictive Analytics</span>
+          <h2 class="slide-title">A Dashboard <span>That Sees What's Next</span></h2>
+          
+          <div class="analytics-dashboard-grid">
+            <div class="dashboard-card">
+              <div class="dashboard-card-title">Revenue Chart</div>
+              <div style="display: flex; gap: 8px; align-items: flex-end; height: 60px; margin-top: 10px;">
+                <div style="height: 40%; width: 16px; background: rgba(0,0,0,0.1); border-radius: 2px;"></div>
+                <div style="height: 55%; width: 16px; background: rgba(0,0,0,0.1); border-radius: 2px;"></div>
+                <div style="height: 50%; width: 16px; background: rgba(0,0,0,0.1); border-radius: 2px;"></div>
+                <div style="height: 75%; width: 16px; background: rgba(0,0,0,0.1); border-radius: 2px;"></div>
+                <div style="height: 95%; width: 16px; background: var(--color-orange); border-radius: 2px;"></div>
+              </div>
+              <span style="font-size: 9px; font-weight: 700; color: var(--color-text-muted); margin-top: 8px;">Target: 4.2M INR (On Track)</span>
+            </div>
+            
+            <div class="dashboard-card">
+              <div class="dashboard-card-title">Sales Forecast</div>
+              <div class="dashboard-card-value" style="font-size: 28px; color: var(--color-blue);"><i class="bi bi-graph-up"></i></div>
+              <div style="font-size: 11px; font-weight: 700; color: var(--color-text-muted);">Trending Up</div>
+            </div>
+            
+            <div class="dashboard-card">
+              <div class="dashboard-card-title">Repeat Customers</div>
+              <div class="dashboard-card-value">82%</div>
+              <span style="font-size: 9px; font-weight: 700; color: #10B981;">NPS: 78 (Excellent)</span>
+            </div>
+            
+            <div class="dashboard-widgets-grid">
+              <div class="widget-card">
+                <div class="widget-icon text-blue"><i class="bi bi-box"></i></div>
+                <div class="widget-details">
+                  <span class="widget-label">Inventory Risk</span>
+                  <span class="widget-value blue-val">Low Risk</span>
+                </div>
+              </div>
+              <div class="widget-card">
+                <div class="widget-icon text-orange"><i class="bi bi-currency-dollar"></i></div>
+                <div class="widget-details">
+                  <span class="widget-label">Gold Price</span>
+                  <span class="widget-value rising">↑ Rising (6.4k/g)</span>
+                </div>
+              </div>
+              <div class="widget-card">
+                <div class="widget-icon text-orange"><i class="bi bi-heart"></i></div>
+                <div class="widget-details">
+                  <span class="widget-label">Wedding Demand</span>
+                  <span class="widget-value rising">High Season</span>
+                </div>
+              </div>
+              <div class="widget-card">
+                <div class="widget-icon text-blue"><i class="bi bi-gem"></i></div>
+                <div class="widget-details">
+                  <span class="widget-label">Top Seller</span>
+                  <span class="widget-value blue-val">Diamond Ring</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Jewellery Slide 9: Agent Team -->
+    <section class="slide sector-slide" data-index="23" data-sector="jewellery" style="display: none;">
+      <div class="slide-content" style="grid-template-columns: 1fr; max-width: 940px;">
+        <div class="slide-body">
+          <span class="eyebrow">Meet the Team</span>
+          <h2 class="slide-title">AI Agents <span>That Work Like Employees</span></h2>
+          <div class="team-grid-8">
+            <div class="team-card">
+              <div class="team-card-icon"><i class="bi bi-robot text-orange"></i></div>
+              <div class="team-card-name">Sales Agent</div>
+              <div class="team-card-status"><span class="status-dot"></span> Active</div>
+              <div class="team-card-skills">Qualifies leads, suggests rings, creates instant quotes.</div>
+            </div>
+            <div class="team-card">
+              <div class="team-card-icon"><i class="bi bi-robot text-blue"></i></div>
+              <div class="team-card-name">Marketing Agent</div>
+              <div class="team-card-status"><span class="status-dot"></span> Active</div>
+              <div class="team-card-skills">Runs wedding campaigns, drafts WhatsApp invitations.</div>
+            </div>
+            <div class="team-card">
+              <div class="team-card-icon"><i class="bi bi-robot text-orange"></i></div>
+              <div class="team-card-name">Customer Support</div>
+              <div class="team-card-status"><span class="status-dot"></span> Active</div>
+              <div class="team-card-skills">Answers FAQs 24/7, handles phone reservations.</div>
+            </div>
+            <div class="team-card">
+              <div class="team-card-icon"><i class="bi bi-robot text-blue"></i></div>
+              <div class="team-card-name">Inventory Agent</div>
+              <div class="team-card-status"><span class="status-dot"></span> Active</div>
+              <div class="team-card-skills">Triggers POs, reconciles weights, tracks karigars.</div>
+            </div>
+            <div class="team-card">
+              <div class="team-card-icon"><i class="bi bi-robot text-orange"></i></div>
+              <div class="team-card-name">Pricing Agent</div>
+              <div class="team-card-status"><span class="status-dot"></span> Active</div>
+              <div class="team-card-skills">Tracks gold spot rate, applies margin protection.</div>
+            </div>
+            <div class="team-card">
+              <div class="team-card-icon"><i class="bi bi-robot text-blue"></i></div>
+              <div class="team-card-name">Purchase Agent</div>
+              <div class="team-card-status"><span class="status-dot"></span> Active</div>
+              <div class="team-card-skills">Manages supplier bills, verifies gemstone invoices.</div>
+            </div>
+            <div class="team-card">
+              <div class="team-card-icon"><i class="bi bi-robot text-orange"></i></div>
+              <div class="team-card-name">Analytics Agent</div>
+              <div class="team-card-status"><span class="status-dot"></span> Active</div>
+              <div class="team-card-skills">Builds margin sheets, forecasts seasonal sales.</div>
+            </div>
+            <div class="team-card" style="background: rgba(0,0,0,0.85); border-color: var(--color-stroke);">
+              <div class="team-card-icon" style="background: rgba(255,255,255,0.2);"><i class="bi bi-robot text-yellow" style="color: #FFE600 !important;"></i></div>
+              <div class="team-card-name" style="color: #FFFFFF;">CEO Assistant</div>
+              <div class="team-card-status"><span class="status-dot" style="background-color: #FFE600; box-shadow: 0 0 6px #FFE600;"></span> Active</div>
+              <div class="team-card-skills" style="color: rgba(255,255,255,0.7); border-color: rgba(255,255,255,0.15);">Summarizes boutique audits, flags margin risks.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Jewellery Slide 10: ROI Compounding -->
+    <section class="slide sector-slide" data-index="24" data-sector="jewellery" style="display: none;">
+      <div class="slide-content" style="grid-template-columns: 1fr; max-width: 940px;">
+        <div class="slide-body">
+          <span class="eyebrow">Return on Investment</span>
+          <h2 class="slide-title">Every Rupee <span>Invested Compounds</span></h2>
+          <div class="roi-layout">
+            <div class="vertical-flow">
+              <div class="vertical-flow-item"><strong>Investment</strong> - Setup cost & software API integration</div>
+              <div class="vertical-flow-item"><strong>AI Implementation</strong> - Connect TryJewel database to CRM</div>
+              <div class="vertical-flow-item"><strong>Automation</strong> - 90% of lead follow-ups and service handled</div>
+              <div class="vertical-flow-item"><strong>Less Manual Work</strong> - Saves 15 hours per associate weekly</div>
+              <div class="vertical-flow-item"><strong>Higher Sales</strong> - Personalized offers double repeat visits</div>
+              <div class="vertical-flow-item"><strong>Lower Cost</strong> - Zero pricing errors & lower stock overheads</div>
+              <div class="roi-highlight-badge">
+                <div class="roi-highlight-title">ROI: 312%</div>
+              </div>
+            </div>
+            
+            <div class="roi-metrics-grid">
+              <div class="roi-metric-item">
+                <i class="bi bi-graph-up-arrow"></i>
+                <span>Repeat Purchase ↑ 34%</span>
+              </div>
+              <div class="roi-metric-item">
+                <i class="bi bi-shield-check"></i>
+                <span>Inventory Accuracy ↑ 98%</span>
+              </div>
+              <div class="roi-metric-item">
+                <i class="bi bi-emoji-smile"></i>
+                <span>Customer Satisfaction ↑ 45%</span>
+              </div>
+              <div class="roi-metric-item">
+                <i class="bi bi-pie-chart"></i>
+                <span>Gross Profit Margins ↑ 12%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Jewellery Slide 11: The Numbers -->
+    <section class="slide sector-slide" data-index="25" data-sector="jewellery" style="display: none;">
+      <div class="slide-content" style="grid-template-columns: 1fr; max-width: 940px;">
+        <div class="slide-body">
+          <span class="eyebrow">The Numbers</span>
+          <h2 class="slide-title">Results <span>That Speak for Themselves</span></h2>
+          <div class="stats-grid-6">
+            <div class="stat-card">
+              <div class="stat-value">98%</div>
+              <div class="stat-label">Inventory Accuracy</div>
+              <p style="font-size: 11px; color: var(--color-text-muted); margin-top: 8px;">Eliminates manual count mismatches across gold weight logs.</p>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">34%</div>
+              <div class="stat-label">Customer Retention</div>
+              <p style="font-size: 11px; color: var(--color-text-muted); margin-top: 8px;">Triggered by personalized WhatsApp anniversary campaigns.</p>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">23%</div>
+              <div class="stat-label">Higher Average Sale</div>
+              <p style="font-size: 11px; color: var(--color-text-muted); margin-top: 8px;">Driven by AI-powered cross-sell recommendations on tablets.</p>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value blue-val">312%</div>
+              <div class="stat-label">Return on Investment</div>
+              <p style="font-size: 11px; color: var(--color-text-muted); margin-top: 8px;">Average return calculated within the first 12 months.</p>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value blue-val">87%</div>
+              <div class="stat-label">Fewer Inventory Errors</div>
+              <p style="font-size: 11px; color: var(--color-text-muted); margin-top: 8px;">AI vision auto-reconciles gemstone certificates upon receipt.</p>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value blue-val">76%</div>
+              <div class="stat-label">Prediction Accuracy</div>
+              <p style="font-size: 11px; color: var(--color-text-muted); margin-top: 8px;">AI accurately models local wedding buying patterns.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Jewellery Slide 12: 12-Week Rollout -->
+    <section class="slide sector-slide" data-index="26" data-sector="jewellery" style="display: none;">
+      <div class="slide-content" style="grid-template-columns: 1fr; max-width: 940px;">
+        <div class="slide-body" style="align-items: center;">
+          <span class="eyebrow">12-Week Rollout</span>
+          <h2 class="slide-title">Your <span>Implementation Roadmap</span></h2>
+          
+          <div class="progress-timeline" style="margin-top: 30px;">
+            <div class="progress-step">
+              <div class="progress-step-icon"><i class="bi bi-search"></i></div>
+              <div class="progress-step-text"><strong>Discovery</strong><br>Week 1-2<br><span style="font-size: 9px; color: var(--color-text-muted); font-weight:500;">Audit ERP schemas</span></div>
+            </div>
+            <div class="progress-step">
+              <div class="progress-step-icon"><i class="bi bi-lightbulb"></i></div>
+              <div class="progress-step-text"><strong>AI Strategy</strong><br>Week 3-4<br><span style="font-size: 9px; color: var(--color-text-muted); font-weight:500;">Train voice models</span></div>
+            </div>
+            <div class="progress-step">
+              <div class="progress-step-icon"><i class="bi bi-code-slash"></i></div>
+              <div class="progress-step-text"><strong>Development</strong><br>Week 5-8<br><span style="font-size: 9px; color: var(--color-text-muted); font-weight:500;">Build API triggers</span></div>
+            </div>
+            <div class="progress-step">
+              <div class="progress-step-icon"><i class="bi bi-plugin"></i></div>
+              <div class="progress-step-text"><strong>Integration</strong><br>Week 9-10<br><span style="font-size: 9px; color: var(--color-text-muted); font-weight:500;">Link POS database</span></div>
+            </div>
+            <div class="progress-step">
+              <div class="progress-step-icon"><i class="bi bi-people"></i></div>
+              <div class="progress-step-text"><strong>Training</strong><br>Week 11<br><span style="font-size: 9px; color: var(--color-text-muted); font-weight:500;">Onboard associates</span></div>
+            </div>
+            <div class="progress-step" style="background: var(--color-orange-glow); border-color: var(--color-orange);">
+              <div class="progress-step-icon" style="background: var(--color-orange);"><i class="bi bi-rocket-takeoff" style="color: #FFFFFF;"></i></div>
+              <div class="progress-step-text"><strong>Go Live</strong><br>Week 12<br><span style="font-size: 9px; color: var(--color-orange); font-weight:700;">Trigger AI Engine</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Jewellery Slide 13: Why Choose Us -->
+    <section class="slide sector-slide" data-index="27" data-sector="jewellery" style="display: none;">
+      <div class="slide-content" style="grid-template-columns: 1fr; max-width: 940px;">
+        <div class="slide-body" style="align-items: center;">
+          <span class="eyebrow">Why Choose Us</span>
+          <h2 class="slide-title">One Partner for <span>Your Complete AI Journey</span></h2>
+          
+          <div class="progress-timeline" style="margin-top: 30px;">
+            <div class="progress-step"><div class="progress-step-text"><strong>Strategy</strong><br><span style="font-size: 9px; color: var(--color-text-muted);">Roadmap audit</span></div></div>
+            <div class="progress-step"><div class="progress-step-text"><strong>Design</strong><br><span style="font-size: 9px; color: var(--color-text-muted);">UX wireframes</span></div></div>
+            <div class="progress-step"><div class="progress-step-text"><strong>Build</strong><br><span style="font-size: 9px; color: var(--color-text-muted);">Model training</span></div></div>
+            <div class="progress-step"><div class="progress-step-text"><strong>Integrate</strong><br><span style="font-size: 9px; color: var(--color-text-muted);">API pipelines</span></div></div>
+            <div class="progress-step"><div class="progress-step-text"><strong>Train</strong><br><span style="font-size: 9px; color: var(--color-text-muted);">Staff onboarding</span></div></div>
+            <div class="progress-step"><div class="progress-step-text"><strong>Support</strong><br><span style="font-size: 9px; color: var(--color-text-muted);">Live monitoring</span></div></div>
+            <div class="progress-step" style="background: var(--color-blue-glow); border-color: var(--color-blue);"><div class="progress-step-text"><strong>Optimization</strong><br><span style="font-size: 9px; color: var(--color-blue); font-weight:700;">Continuous tuning</span></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Jewellery Slide 14: Day in the Life -->
+    <section class="slide sector-slide" data-index="28" data-sector="jewellery" style="display: none;">
+      <div class="slide-content" style="grid-template-columns: 1fr; max-width: 960px;">
+        <div class="slide-body" style="align-items: center;">
+          <span class="eyebrow">The Future, Today</span>
+          <h2 class="slide-title">A Day in the Life of <span>an AI-Powered Store</span></h2>
+          <p class="slide-desc" style="text-align: center; margin-bottom: 20px;">This is the moment AI turns a walk-in into a lifelong customer.</p>
+          
+          <div class="team-grid-8" style="grid-template-columns: repeat(4, 1fr); gap: 10px; width: 100%;">
+            <div class="team-card"><div class="team-card-icon"><i class="bi bi-door-open"></i></div><div class="team-card-name" style="font-size: 11px;">Customer Walks In</div><div class="team-card-skills">Visitor steps into boutique</div></div>
+            <div class="team-card"><div class="team-card-icon"><i class="bi bi-eye"></i></div><div class="team-card-name" style="font-size: 11px;">AI Recognizes Guest</div><div class="team-card-skills">Looks up profile in CRM database</div></div>
+            <div class="team-card"><div class="team-card-icon"><i class="bi bi-tablet"></i></div><div class="team-card-name" style="font-size: 11px;">Salesperson Alerted</div><div class="team-card-skills">Associate receives tablet notification</div></div>
+            <div class="team-card"><div class="team-card-icon"><i class="bi bi-gem"></i></div><div class="team-card-name" style="font-size: 11px;">Bought Ring 2 Yrs Ago</div><div class="team-card-skills">Alert details previous diamond purchase</div></div>
+            
+            <div class="team-card"><div class="team-card-icon"><i class="bi bi-sparkles"></i></div><div class="team-card-name" style="font-size: 11px;">AI Suggests Earrings</div><div class="team-card-skills">Predicts matching set for anniversary</div></div>
+            <div class="team-card"><div class="team-card-icon"><i class="bi bi-credit-card"></i></div><div class="team-card-name" style="font-size: 11px;">Customer Likes & Pays</div><div class="team-card-skills">Associate pitches, checkout completed</div></div>
+            <div class="team-card"><div class="team-card-icon"><i class="bi bi-file-earmark-check"></i></div><div class="team-card-name" style="font-size: 11px;">Invoice Issued</div><div class="team-card-skills">DrutaSign e-warranty generated</div></div>
+            <div class="team-card"><div class="team-card-icon"><i class="bi bi-whatsapp"></i></div><div class="team-card-name" style="font-size: 11px;">WhatsApp Thank You</div><div class="team-card-skills">Invoice links sent instantly</div></div>
+            
+            <div class="team-card"><div class="team-card-icon"><i class="bi bi-chat-square-heart"></i></div><div class="team-card-name" style="font-size: 11px;">Review Requested</div><div class="team-card-skills">NPS survey sent 24h later</div></div>
+            <div class="team-card"><div class="team-card-icon"><i class="bi bi-calendar-event"></i></div><div class="team-card-name" style="font-size: 11px;">Birthday Alert Set</div><div class="team-card-skills">Follow-up set in catalog calendar</div></div>
+            <div class="team-card"><div class="team-card-icon"><i class="bi bi-balloon"></i></div><div class="team-card-name" style="font-size: 11px;">Anniversary Campaign</div><div class="team-card-skills">Targeted campaign runs next year</div></div>
+            <div class="team-card" style="background: var(--color-orange-glow); border-color: var(--color-orange);"><div class="team-card-icon" style="background: var(--color-orange);"><i class="bi bi-arrow-repeat" style="color: #FFFFFF;"></i></div><div class="team-card-name" style="font-size: 11px; color: var(--color-orange);">Repeat Purchase!</div><div class="team-card-skills" style="color: var(--color-text-main); font-weight: 700;">Lifelong loyalty active</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- END OF DETAILED JEWELLERY SECTION            -->
+    <!-- ============================================ -->
+
+    <!-- Slide 29: CRM Blueprint (Common concluding) -->
+    <section class="slide" data-index="29">
+      <div class="slide-content">
+        <div class="slide-body">
+          <span class="eyebrow">CRM Blueprint</span>
+          <h2 class="slide-title">Three Pillars of <span class="highlight-blue">CRM Integration</span></h2>
+          <p class="slide-desc">
+            To build a robust and high-performing sales/service engine, GrowGlobal Strategies executes across three CRM categories:
+          </p>
+          <div class="roadmap-grid">
+            <div class="roadmap-card">
+              <div class="roadmap-card-title"><i class="bi bi-search-heart text-blue"></i> 1. Research</div>
+              <p class="roadmap-card-desc">Connecting raw data systems (Snowflake, POS, ERPs) into a centralized CRM client profile.</p>
+            </div>
+            <div class="roadmap-card">
+              <div class="roadmap-card-title"><i class="bi bi-file-earmark-code text-orange"></i> 2. Content</div>
+              <p class="roadmap-card-desc">Deploying LLMs to write tailored follow-ups, confirmations, and targeted marketing copy.</p>
+            </div>
+            <div class="roadmap-card" style="grid-column: 1 / span 2;">
+              <div class="roadmap-card-title"><i class="bi bi-window-sidebar text-purple" style="color: #8B5CF6;"></i> 3. Design</div>
+              <p class="roadmap-card-desc">Designing unified role-based dashboards for support, sales reps, and managers, reducing search time and clicks.</p>
+            </div>
+          </div>
+        </div>
+        <div class="slide-media">
+          <div class="media-container media-container-img">
+            <img src="images/6.png" alt="Integrated Intelligent Impactful CRM Framework" class="slide-real-img" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 30: Book Discovery Session (Common concluding) -->
+    <section class="slide" data-index="30" id="discovery">
+      <div class="slide-content">
+        <div class="slide-body">
+          <span class="eyebrow">Get Started</span>
+          <h2 class="slide-title">Book a <span class="highlight-orange">Discovery Session</span></h2>
+          <p class="slide-desc">
+            Map out your custom Data to AI Roadmap and scale your enterprise sales and service operations.
+          </p>
+          
+          <form class="booking-form" id="discovery-form">
+            <div class="form-group">
+              <label for="client-name">Name</label>
+              <input class="form-input" type="text" id="client-name" placeholder="John Doe" required>
+            </div>
+            <div class="form-group">
+              <label for="client-email">Email Address</label>
+              <input class="form-input" type="email" id="client-email" placeholder="john@company.com" required>
+            </div>
+            <div class="form-group">
+              <label for="client-company">Company</label>
+              <input class="form-input" type="text" id="client-company" placeholder="GrowGlobal Ltd" required>
+            </div>
+            <button class="cta-button" type="submit">Submit Request</button>
+            <div class="form-success-msg" id="success-message"></div>
+          </form>
+        </div>
+        <div class="slide-media">
+          <div class="media-container media-container-img">
+            <img src="images/7.png" alt="Your AI Roadmap Starts Here" class="slide-real-img" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

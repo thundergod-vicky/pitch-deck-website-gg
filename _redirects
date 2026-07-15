@@ -1,0 +1,8 @@
+/* Netlify _redirects — Static site, no server-side routing needed.
+   All traffic serves index.html directly from root. */
+
+# Force HTTPS (Netlify handles this automatically, but kept for clarity)
+# http://your-site.netlify.app/*  https://your-site.netlify.app/:splat  301!
+
+# SPA catch-all — serves index.html for any unmatched path
+/*  /index.html  200
