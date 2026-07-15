@@ -391,6 +391,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // -------------------------------------------------------
   // PPTX Export — screenshot each slide via html2canvas
   // -------------------------------------------------------
+  // -------------------------------------------------------
+  // PPTX Export — Programmatic native PowerPoint Slide Generator
+  // -------------------------------------------------------
   async function captureAndBuildPptx(slideEls, sector) {
     const sectorLabel = sector === 'common' ? 'Common' :
       sector.split('-').map(w => w[0].toUpperCase() + w.slice(1)).join(' ');
@@ -400,38 +403,290 @@ document.addEventListener('DOMContentLoaded', () => {
 
     try {
       const pptx = new PptxGenJS();
-      pptx.layout = 'LAYOUT_WIDE'; // 13.33" × 7.5" — standard 16:9
+      pptx.layout = 'LAYOUT_WIDE'; // 16:9 layout (13.33" x 7.5")
+
+      // Theme Colors
+      const ORANGE = 'FF7A00';
+      const DARK   = '0F172A';
+      const MUTED  = '64748B';
+      const BG     = 'F8F9FB';
+      const CARD_BG = 'FFFFFF';
 
       const total = slideEls.length;
 
       for (let i = 0; i < total; i++) {
         const slideEl = slideEls[i];
-        updateProgress(i, total, `Capturing slide ${i + 1} of ${total}…`);
+        updateProgress(i, total, `Compiling slide ${i + 1} of ${total}…`);
 
-        // Scroll element into view within the container so it's composited
-        slideEl.scrollIntoView({ block: 'start' });
-        await new Promise(r => setTimeout(r, 60));
+        // Add a slide
+        const pSlide = pptx.addSlide();
 
-        // Capture with html2canvas
-        const canvas = await html2canvas(slideEl, {
-          scale: 2,
-          useCORS: true,
-          allowTaint: true,
-          logging: false,
-          backgroundColor: '#F8F9FB',
-          width:  slideEl.offsetWidth  || 1280,
-          height: slideEl.offsetHeight || 720,
-          windowWidth:  slideEl.offsetWidth  || 1280,
-          windowHeight: slideEl.offsetHeight || 720
+        // Background
+        pSlide.addShape(pptx.ShapeType.rect, { x: 0, y: 0, w: '100%', h: '100%', fill: { color: BG } });
+        
+        // Sidebar accent line (matches brand guide)
+        pSlide.addShape(pptx.ShapeType.rect, { x: 0, y: 0, w: 0.15, h: '100%', fill: { color: ORANGE } });
+
+        // Gather slide header content
+        let eyebrow = slideEl.querySelector('.eyebrow') ? slideEl.querySelector('.eyebrow').innerText.trim() : '';
+        let title = slideEl.querySelector('.slide-title') ? slideEl.querySelector('.slide-title').innerText.trim() : '';
+        let desc = slideEl.querySelector('.slide-desc') ? slideEl.querySelector('.slide-desc').innerText.trim() : '';
+
+        // Clean title text of any stray symbols
+        title = title.replace(/\s+/g, ' ');
+
+        // Add eyebrow
+        if (eyebrow) {
+          pSlide.addText(eyebrow.toUpperCase(), {
+            x: 0.5, y: 0.4, w: 12, h: 0.3,
+            fontSize: 10, bold: true, color: ORANGE, fontFace: 'Calibri', characterSpacing: 1.5
+          });
+        }
+
+        // Add main slide title
+        if (title) {
+          pSlide.addText(title, {
+            x: 0.5, y: 0.7, w: 12, h: 0.7,
+            fontSize: 26, bold: true, color: DARK, fontFace: 'Calibri'
+          });
+        }
+
+        // Add subtitle/description
+        if (desc) {
+          pSlide.addText(desc, {
+            x: 0.5, y: 1.4, w: 12, h: 0.4,
+            fontSize: 11, color: MUTED, fontFace: 'Calibri', italic: true
+          });
+        }
+
+        // --- Layout Parsing ---
+        const imgEl = slideEl.querySelector('.slide-real-img, img');
+        const compLayout = slideEl.querySelector('.comparison-layout');
+        const timelineLayout = slideEl.querySelector('.progress-timeline, .repair-flow-timeline');
+        const gridLayout = slideEl.querySelector('.pillars-grid, .roadmap-grid');
+        const featureList = slideEl.querySelector('.feature-list');
+
+        let contentWidth = imgEl ? 6.0 : 12.0;
+
+        if (compLayout) {
+          // Render two columns side-by-side
+          const compCards = Array.from(compLayout.querySelectorAll('.comparison-card'));
+          if (compCards.length >= 2) {
+            // Card 1: Today
+            const card1 = compCards[0];
+            const card1Title = card1.querySelector('.comparison-card-title') ? card1.querySelector('.comparison-card-title').innerText.trim() : 'TODAY';
+            const card1Bullets = Array.from(card1.querySelectorAll('.comparison-item')).map(el => el.innerText.trim());
+
+            // Draw Card 1 Background shape
+            pSlide.addShape(pptx.ShapeType.roundRect, {
+              x: 0.5, y: 2.0, w: 5.5, h: 4.5,
+              fill: { color: CARD_BG },
+              line: { color: 'E2E8F0', width: 1.5 }
+            });
+            pSlide.addText(card1Title, {
+              x: 0.8, y: 2.2, w: 4.9, h: 0.4,
+              fontSize: 16, bold: true, color: 'E53E3E', fontFace: 'Calibri'
+            });
+            const textItems1 = card1Bullets.map(b => ({ text: '  ' + b, options: { bullet: { code: '2022' }, color: DARK, fontSize: 12, paraSpaceAfter: 8 } }));
+            pSlide.addText(textItems1, {
+              x: 0.8, y: 2.8, w: 4.9, h: 3.4,
+              fontFace: 'Calibri'
+            });
+
+            // Card 2: With AI
+            const card2 = compCards[1];
+            const card2Title = card2.querySelector('.comparison-card-title') ? card2.querySelector('.comparison-card-title').innerText.trim() : 'WITH AI';
+            const card2Bullets = Array.from(card2.querySelectorAll('.comparison-item')).map(el => el.innerText.trim());
+
+            // Draw Card 2 Background shape (with orange border)
+            pSlide.addShape(pptx.ShapeType.roundRect, {
+              x: 6.8, y: 2.0, w: 5.5, h: 4.5,
+              fill: { color: CARD_BG },
+              line: { color: ORANGE, width: 2 }
+            });
+            pSlide.addText(card2Title, {
+              x: 7.1, y: 2.2, w: 4.9, h: 0.4,
+              fontSize: 16, bold: true, color: ORANGE, fontFace: 'Calibri'
+            });
+            const textItems2 = card2Bullets.map(b => ({ text: '  ' + b, options: { bullet: { code: '2713' }, color: DARK, fontSize: 12, paraSpaceAfter: 8 } }));
+            pSlide.addText(textItems2, {
+              x: 7.1, y: 2.8, w: 4.9, h: 3.4,
+              fontFace: 'Calibri'
+            });
+          }
+        }
+        else if (timelineLayout) {
+          // Horizontal journey timeline (e.g. Dining Flow)
+          const steps = Array.from(timelineLayout.querySelectorAll('.progress-step, .repair-flow-step'));
+          const count = steps.length;
+          if (count > 0) {
+            const cardWidth = Math.min(1.8, 11.5 / count);
+            const gap = (11.5 - (cardWidth * count)) / (count - 1 || 1);
+            
+            for (let j = 0; j < count; j++) {
+              const step = steps[j];
+              const stepTitle = step.querySelector('.progress-title, .repair-flow-title') ? step.querySelector('.progress-title, .repair-flow-title').innerText.trim() : '';
+              const stepDesc = step.querySelector('.progress-desc, .repair-flow-desc') ? step.querySelector('.progress-desc, .repair-flow-desc').innerText.trim() : '';
+              const stepNum = step.querySelector('.progress-num, .repair-flow-num') ? step.querySelector('.progress-num, .repair-flow-num').innerText.trim() : (j + 1).toString();
+              
+              const cardX = 0.5 + j * (cardWidth + gap);
+
+              // Draw Step Card shape
+              pSlide.addShape(pptx.ShapeType.roundRect, {
+                x: cardX, y: 2.2, w: cardWidth, h: 4.2,
+                fill: { color: 'F1F5F9' },
+                line: { color: 'CBD5E1', width: 1 }
+              });
+
+              // Step number circle representation
+              pSlide.addShape(pptx.ShapeType.oval, {
+                x: cardX + (cardWidth - 0.6) / 2, y: 2.5, w: 0.6, h: 0.6,
+                fill: { color: ORANGE }
+              });
+              pSlide.addText(stepNum, {
+                x: cardX, y: 2.55, w: cardWidth, h: 0.5,
+                fontSize: 12, bold: true, color: 'FFFFFF', align: 'center', fontFace: 'Calibri'
+              });
+
+              // Step title
+              pSlide.addText(stepTitle, {
+                x: cardX + 0.1, y: 3.3, w: cardWidth - 0.2, h: 0.8,
+                fontSize: 12, bold: true, color: DARK, align: 'center', fontFace: 'Calibri'
+              });
+
+              // Step description
+              pSlide.addText(stepDesc, {
+                x: cardX + 0.1, y: 4.2, w: cardWidth - 0.2, h: 2.0,
+                fontSize: 10, color: MUTED, align: 'center', fontFace: 'Calibri'
+              });
+
+              // Arrow to next step
+              if (j < count - 1) {
+                const arrowX = cardX + cardWidth;
+                pSlide.addText('→', {
+                  x: arrowX, y: 3.8, w: gap, h: 0.4,
+                  fontSize: 20, color: ORANGE, align: 'center', fontFace: 'Calibri'
+                });
+              }
+            }
+          }
+        }
+        else if (gridLayout) {
+          // Pillars or roadmap grid layout (2 columns, or 3 columns)
+          const cards = Array.from(gridLayout.querySelectorAll('.pillar-card, .roadmap-card'));
+          const count = cards.length;
+          if (count > 0) {
+            const isTwoCol = count === 2 || imgEl;
+            const colWidth = isTwoCol ? (contentWidth - 0.8) : 3.8;
+            
+            for (let j = 0; j < count; j++) {
+              const card = cards[j];
+              const cardTitle = card.querySelector('.pillar-card-title, .roadmap-card-title') ? card.querySelector('.pillar-card-title, .roadmap-card-title').innerText.trim() : '';
+              const cardDesc = card.querySelector('.pillar-card-desc, .roadmap-card-desc') ? card.querySelector('.pillar-card-desc, .roadmap-card-desc').innerText.trim() : '';
+
+              let colX = 0.5;
+              let colY = 2.0;
+
+              if (isTwoCol) {
+                colX = 0.5 + (j % 2) * (colWidth + 0.4);
+                colY = 2.0 + Math.floor(j / 2) * 2.3;
+              } else {
+                colX = 0.5 + (j % 3) * (colWidth + 0.3);
+                colY = 2.0 + Math.floor(j / 3) * 2.3;
+              }
+
+              pSlide.addShape(pptx.ShapeType.roundRect, {
+                x: colX, y: colY, w: colWidth, h: 2.1,
+                fill: { color: CARD_BG },
+                line: { color: 'E2E8F0', width: 1 }
+              });
+
+              pSlide.addText(cardTitle, {
+                x: colX + 0.2, y: colY + 0.15, w: colWidth - 0.4, h: 0.4,
+                fontSize: 14, bold: true, color: DARK, fontFace: 'Calibri'
+              });
+
+              pSlide.addText(cardDesc, {
+                x: colX + 0.2, y: colY + 0.6, w: colWidth - 0.4, h: 1.3,
+                fontSize: 11, color: MUTED, fontFace: 'Calibri'
+              });
+            }
+          }
+        }
+        else if (featureList) {
+          // Bullet features list
+          const items = Array.from(featureList.querySelectorAll('.feature-item, li'));
+          const bulletsData = items.map(item => {
+            const strong = item.querySelector('strong') ? item.querySelector('strong').innerText.trim() : '';
+            const span = item.querySelector('span') ? item.querySelector('span').innerText.trim() : '';
+            const text = item.innerText.trim();
+            
+            if (strong || span) {
+              return `${strong}: ${span}`;
+            }
+            return text;
+          }).filter(Boolean);
+
+          const textItems = bulletsData.map(b => ({ text: '  ' + b, options: { bullet: { code: '25BA' }, color: DARK, fontSize: 13, paraSpaceAfter: 12 } }));
+          pSlide.addText(textItems, {
+            x: 0.5, y: 2.2, w: contentWidth - 0.5, h: 4.3,
+            fontFace: 'Calibri'
+          });
+        }
+        else {
+          // Sector picker cards or fallback
+          const sectorCards = Array.from(slideEl.querySelectorAll('.sector-card'));
+          if (sectorCards.length > 0) {
+            const cardWidth = 2.8;
+            const gap = 0.2;
+            for (let j = 0; j < sectorCards.length; j++) {
+              const card = sectorCards[j];
+              const name = card.querySelector('.sector-name') ? card.querySelector('.sector-name').innerText.trim() : '';
+              const meta = card.querySelector('.sector-meta') ? card.querySelector('.sector-meta').innerText.trim() : '';
+              
+              const cardX = 0.5 + j * (cardWidth + gap);
+              pSlide.addShape(pptx.ShapeType.roundRect, {
+                x: cardX, y: 2.2, w: cardWidth, h: 4.0,
+                fill: { color: CARD_BG },
+                line: { color: ORANGE, width: 1.5 }
+              });
+              pSlide.addText(name, {
+                x: cardX + 0.1, y: 2.6, w: cardWidth - 0.2, h: 0.6,
+                fontSize: 16, bold: true, color: DARK, align: 'center', fontFace: 'Calibri'
+              });
+              pSlide.addText(meta, {
+                x: cardX + 0.1, y: 3.4, w: cardWidth - 0.2, h: 2.4,
+                fontSize: 11, color: MUTED, align: 'center', fontFace: 'Calibri'
+              });
+            }
+          } else {
+            pSlide.addText("Explore details of GrowGlobal's custom integrated frameworks, modular workflows, and AI solutions.", {
+              x: 0.5, y: 2.2, w: contentWidth - 0.5, h: 4.0,
+              fontSize: 14, color: DARK, fontFace: 'Calibri'
+            });
+          }
+        }
+
+        // Add native image if slide has an image element (always placed nicely on the right half)
+        if (imgEl && imgEl.getAttribute('src')) {
+          const imgSrc = imgEl.getAttribute('src');
+          pSlide.addImage({
+            path: imgSrc,
+            x: 7.2,
+            y: 1.8,
+            w: 5.6,
+            h: 4.5,
+            sizing: { type: 'contain', w: 5.6, h: 4.5 }
+          });
+        }
+
+        // Add footer branding on every slide (bottom right)
+        pSlide.addText('GrowGlobal Strategies', {
+          x: 9.8, y: 7.0, w: 3.0, h: 0.3,
+          fontSize: 9, bold: true, color: MUTED, align: 'right', fontFace: 'Calibri'
         });
 
-        const imgData = canvas.toDataURL('image/jpeg', 0.92);
-
-        // Add as a full-bleed image slide
-        const pSlide = pptx.addSlide();
-        pSlide.addImage({ data: imgData, x: 0, y: 0, w: '100%', h: '100%' });
-
-        updateProgress(i + 1, total, `Slide ${i + 1} captured ✓`);
+        updateProgress(i + 1, total, `Slide ${i + 1} compiled ✓`);
       }
 
       const fileName = `GrowGlobal-${sectorLabel.replace(/\s+/g, '-')}-Pitch-Deck.pptx`;
