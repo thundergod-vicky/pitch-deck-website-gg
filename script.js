@@ -231,149 +231,233 @@ document.addEventListener('DOMContentLoaded', () => {
   resetNavNumbers();
 
   // ========================================================
-  // EXPORT FUNCTIONALITY — PDF & PPTX
+  // EXPORT FUNCTIONALITY — PDF & PPTX (with sector picker)
   // ========================================================
-  const pdfBtn = document.getElementById('export-pdf-btn');
+  const pdfBtn  = document.getElementById('export-pdf-btn');
   const pptxBtn = document.getElementById('export-pptx-btn');
   const exportStatus = document.getElementById('export-status');
 
+  // --- Modal elements ---
+  const exportModal      = document.getElementById('export-modal');
+  const exportModalClose = document.getElementById('export-modal-close');
+  const exportModalIcon  = document.getElementById('export-modal-icon');
+  const exportProgress   = document.getElementById('export-progress');
+  const progressBar      = document.getElementById('export-progress-bar');
+  const progressTitle    = document.getElementById('export-progress-title');
+  const progressLabel    = document.getElementById('export-progress-label');
+
+  let currentExportType = null; // 'pdf' | 'pptx'
+
   function showExportStatus(msg, isError = false) {
+    if (!exportStatus) return;
     exportStatus.textContent = msg;
     exportStatus.style.color = isError ? '#E53E3E' : '#10B981';
     exportStatus.style.opacity = '1';
-    setTimeout(() => { exportStatus.style.opacity = '0'; }, 4000);
+    setTimeout(() => { exportStatus.style.opacity = '0'; }, 5000);
   }
 
-  // --- PDF Export ---
-  if (pdfBtn) {
-    pdfBtn.addEventListener('click', async () => {
-      pdfBtn.classList.add('loading');
-      pdfBtn.querySelector('span').textContent = 'Preparing…';
-      showExportStatus('Generating PDF…');
+  // Open modal
+  function openExportModal(type) {
+    currentExportType = type;
+    if (!exportModal) return;
 
-      // Temporarily reveal all slides for capture
-      const hiddenSlides = Array.from(document.querySelectorAll('.slide[style*="display: none"]'));
-      hiddenSlides.forEach(s => s.style.display = 'flex');
+    // Update icon + subtitle based on type
+    if (exportModalIcon) {
+      exportModalIcon.innerHTML = type === 'pdf'
+        ? '<i class="bi bi-file-earmark-pdf-fill"></i>'
+        : '<i class="bi bi-file-earmark-slides-fill"></i>';
+      exportModalIcon.classList.toggle('pptx-mode', type === 'pptx');
+    }
 
+    exportModal.style.display = 'flex';
+    requestAnimationFrame(() => exportModal.classList.add('visible'));
+  }
+
+  function closeExportModal() {
+    if (!exportModal) return;
+    exportModal.classList.remove('visible');
+    setTimeout(() => { exportModal.style.display = 'none'; }, 300);
+  }
+
+  // Progress helpers
+  function showProgress(title) {
+    if (!exportProgress) return;
+    progressTitle.textContent = title;
+    progressBar.style.width = '0%';
+    progressLabel.textContent = 'Starting…';
+    exportProgress.style.display = 'flex';
+  }
+
+  function updateProgress(current, total, label) {
+    const pct = Math.round((current / total) * 100);
+    progressBar.style.width = pct + '%';
+    progressLabel.textContent = label;
+  }
+
+  function hideProgress() {
+    if (!exportProgress) return;
+    exportProgress.style.display = 'none';
+  }
+
+  // Wire up buttons
+  if (pdfBtn)  pdfBtn.addEventListener('click',  () => openExportModal('pdf'));
+  if (pptxBtn) pptxBtn.addEventListener('click', () => openExportModal('pptx'));
+  if (exportModalClose) exportModalClose.addEventListener('click', closeExportModal);
+  if (exportModal) {
+    exportModal.addEventListener('click', (e) => {
+      if (e.target === exportModal) closeExportModal();
+    });
+  }
+
+  // Wire up sector cards inside the modal
+  document.querySelectorAll('.export-sector-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const sector = card.getAttribute('data-export-sector');
+      closeExportModal();
+      setTimeout(() => runExport(currentExportType, sector), 350);
+    });
+  });
+
+  // -------------------------------------------------------
+  // Main export orchestrator
+  // -------------------------------------------------------
+  async function runExport(type, sector) {
+    const allSlideEls = Array.from(document.querySelectorAll('.slide'));
+
+    // Determine which slides to include
+    const targetSlides = allSlideEls.filter(slide => {
+      const slideSector = slide.getAttribute('data-sector');
+      if (!slideSector) return true; // always include common slides
+      if (sector === 'common') return false; // common-only: skip all sector slides
+      return slideSector === sector;
+    });
+
+    if (targetSlides.length === 0) {
+      showExportStatus('No slides found for this sector.', true);
+      return;
+    }
+
+    // --- Enter capture mode ---
+    // 1. Save original display states
+    const originalDisplays = allSlideEls.map(s => s.style.display);
+
+    // 2. Hide all slides, then show only the ones we need
+    allSlideEls.forEach(s => { s.style.display = 'none'; });
+    targetSlides.forEach(s => { s.style.display = 'flex'; });
+
+    // 3. Add capture-mode class so CSS unlocks the container
+    document.body.classList.add('export-capture-mode');
+
+    // Small delay to let CSS repaint
+    await new Promise(r => setTimeout(r, 150));
+
+    try {
+      if (type === 'pptx') {
+        await captureAndBuildPptx(targetSlides, sector);
+      } else {
+        await captureAndBuildPdf(targetSlides, sector);
+      }
+    } finally {
+      // --- Restore original display states ---
+      document.body.classList.remove('export-capture-mode');
+      allSlideEls.forEach((s, i) => { s.style.display = originalDisplays[i]; });
+      hideProgress();
+    }
+  }
+
+  // -------------------------------------------------------
+  // PPTX Export — screenshot each slide via html2canvas
+  // -------------------------------------------------------
+  async function captureAndBuildPptx(slideEls, sector) {
+    const sectorLabel = sector === 'common' ? 'Common' :
+      sector.split('-').map(w => w[0].toUpperCase() + w.slice(1)).join(' ');
+
+    showProgress(`Building PPTX — ${sectorLabel} Sector`);
+    if (pptxBtn) { pptxBtn.classList.add('loading'); pptxBtn.querySelector('span').textContent = 'Building…'; }
+
+    try {
+      const pptx = new PptxGenJS();
+      pptx.layout = 'LAYOUT_WIDE'; // 13.33" × 7.5" — standard 16:9
+
+      const total = slideEls.length;
+
+      for (let i = 0; i < total; i++) {
+        const slideEl = slideEls[i];
+        updateProgress(i, total, `Capturing slide ${i + 1} of ${total}…`);
+
+        // Scroll element into view within the container so it's composited
+        slideEl.scrollIntoView({ block: 'start' });
+        await new Promise(r => setTimeout(r, 60));
+
+        // Capture with html2canvas
+        const canvas = await html2canvas(slideEl, {
+          scale: 2,
+          useCORS: true,
+          allowTaint: true,
+          logging: false,
+          backgroundColor: '#F8F9FB',
+          width:  slideEl.offsetWidth  || 1280,
+          height: slideEl.offsetHeight || 720,
+          windowWidth:  slideEl.offsetWidth  || 1280,
+          windowHeight: slideEl.offsetHeight || 720
+        });
+
+        const imgData = canvas.toDataURL('image/jpeg', 0.92);
+
+        // Add as a full-bleed image slide
+        const pSlide = pptx.addSlide();
+        pSlide.addImage({ data: imgData, x: 0, y: 0, w: '100%', h: '100%' });
+
+        updateProgress(i + 1, total, `Slide ${i + 1} captured ✓`);
+      }
+
+      const fileName = `GrowGlobal-${sectorLabel.replace(/\s+/g, '-')}-Pitch-Deck.pptx`;
+      await pptx.writeFile({ fileName });
+      showExportStatus(`✓ ${fileName} downloaded!`);
+
+    } catch (err) {
+      showExportStatus('PPTX export failed. Try again.', true);
+      console.error('PPTX export error:', err);
+    } finally {
+      if (pptxBtn) { pptxBtn.classList.remove('loading'); pptxBtn.querySelector('span').textContent = 'PPTX'; }
+    }
+  }
+
+  // -------------------------------------------------------
+  // PDF Export — html2pdf on the visible slide container
+  // -------------------------------------------------------
+  async function captureAndBuildPdf(slideEls, sector) {
+    const sectorLabel = sector === 'common' ? 'Common' :
+      sector.split('-').map(w => w[0].toUpperCase() + w.slice(1)).join(' ');
+
+    showProgress(`Generating PDF — ${sectorLabel} Sector`);
+    if (pdfBtn) { pdfBtn.classList.add('loading'); pdfBtn.querySelector('span').textContent = 'Preparing…'; }
+    updateProgress(10, 100, 'Rendering slides…');
+
+    try {
       const container = document.querySelector('.slideshow-container');
+      const fileName  = `GrowGlobal-${sectorLabel.replace(/\s+/g, '-')}-Pitch-Deck.pdf`;
 
       const opt = {
-        margin:       0,
-        filename:     'GrowGlobal-AI-Pitch-Deck.pdf',
-        image:        { type: 'jpeg', quality: 0.95 },
-        html2canvas:  { scale: 1.5, useCORS: true, logging: false },
-        jsPDF:        { unit: 'px', format: [1280, 720], orientation: 'landscape' },
-        pagebreak:    { mode: ['css', 'legacy'] }
+        margin:      0,
+        filename:    fileName,
+        image:       { type: 'jpeg', quality: 0.95 },
+        html2canvas: { scale: 1.5, useCORS: true, allowTaint: true, logging: false },
+        jsPDF:       { unit: 'px', format: [1280, 720], orientation: 'landscape' },
+        pagebreak:   { mode: ['css', 'legacy'] }
       };
 
-      try {
-        await html2pdf().set(opt).from(container).save();
-        showExportStatus('✓ PDF downloaded!');
-      } catch (err) {
-        showExportStatus('Export failed. Try again.', true);
-        console.error('PDF export error:', err);
-      } finally {
-        // Restore hidden slides
-        hiddenSlides.forEach(s => s.style.display = 'none');
-        pdfBtn.classList.remove('loading');
-        pdfBtn.querySelector('span').textContent = 'PDF';
-      }
-    });
+      updateProgress(50, 100, 'Generating PDF…');
+      await html2pdf().set(opt).from(container).save();
+      updateProgress(100, 100, 'Done!');
+      showExportStatus(`✓ ${fileName} downloaded!`);
+
+    } catch (err) {
+      showExportStatus('PDF export failed. Try again.', true);
+      console.error('PDF export error:', err);
+    } finally {
+      if (pdfBtn) { pdfBtn.classList.remove('loading'); pdfBtn.querySelector('span').textContent = 'PDF'; }
+    }
   }
 
-  // --- PPTX Export ---
-  if (pptxBtn) {
-    pptxBtn.addEventListener('click', async () => {
-      pptxBtn.classList.add('loading');
-      pptxBtn.querySelector('span').textContent = 'Building…';
-      showExportStatus('Building PPTX slides…');
-
-      try {
-        const pptx = new PptxGenJS();
-        pptx.layout = 'LAYOUT_WIDE'; // 16:9
-
-        // Brand colours
-        const ORANGE  = 'FF7A00';
-        const DARK    = '0F172A';
-        const MUTED   = '64748B';
-        const WHITE   = 'FFFFFF';
-        const BG      = 'F8F9FB';
-
-        // Helper – get text content from a selector within a slide el
-        const txt = (el, sel) => {
-          const node = el.querySelector(sel);
-          return node ? node.innerText.trim() : '';
-        };
-
-        // Collect all slides (visible + hidden sector slides)
-        const allSlideEls = Array.from(document.querySelectorAll('.slide'));
-
-        for (const slideEl of allSlideEls) {
-          const eyebrow   = txt(slideEl, '.eyebrow');
-          const title     = txt(slideEl, '.slide-title');
-          const desc      = txt(slideEl, '.slide-desc');
-          const bullets   = Array.from(slideEl.querySelectorAll('.comparison-item, .feature-text strong, .stat-value'))
-                                  .map(b => b.innerText.trim())
-                                  .filter(Boolean)
-                                  .slice(0, 6);
-
-          const pSlide = pptx.addSlide();
-
-          // Background
-          pSlide.addShape(pptx.ShapeType.rect, { x: 0, y: 0, w: '100%', h: '100%', fill: { color: BG } });
-          // Orange accent bar
-          pSlide.addShape(pptx.ShapeType.rect, { x: 0, y: 0, w: 0.08, h: '100%', fill: { color: ORANGE } });
-
-          // Eyebrow
-          if (eyebrow) {
-            pSlide.addText(eyebrow.toUpperCase(), {
-              x: 0.35, y: 0.25, w: 8, h: 0.3,
-              fontSize: 8, bold: true, color: ORANGE, fontFace: 'Calibri'
-            });
-          }
-
-          // Title
-          if (title) {
-            pSlide.addText(title, {
-              x: 0.35, y: 0.55, w: 8.5, h: 1.0,
-              fontSize: 26, bold: true, color: DARK, fontFace: 'Calibri',
-              breakLine: true, wrap: true
-            });
-          }
-
-          // Description
-          if (desc) {
-            pSlide.addText(desc, {
-              x: 0.35, y: 1.55, w: 5.5, h: 0.6,
-              fontSize: 11, color: MUTED, fontFace: 'Calibri', wrap: true
-            });
-          }
-
-          // Bullet list
-          if (bullets.length > 0) {
-            const bulletItems = bullets.map(b => ({ text: b, options: { bullet: { code: '25BA' }, color: DARK, fontSize: 11 } }));
-            pSlide.addText(bulletItems, {
-              x: 0.35, y: 2.2, w: 5.5, h: 3.0,
-              fontFace: 'Calibri', paraSpaceAfter: 8
-            });
-          }
-
-          // GrowGlobal branding watermark (bottom right)
-          pSlide.addText('GrowGlobal Strategies', {
-            x: 7.2, y: 6.8, w: 2.5, h: 0.25,
-            fontSize: 8, color: MUTED, align: 'right', fontFace: 'Calibri'
-          });
-        }
-
-        await pptx.writeFile({ fileName: 'GrowGlobal-AI-Pitch-Deck.pptx' });
-        showExportStatus('✓ PPTX downloaded!');
-      } catch (err) {
-        showExportStatus('Export failed. Try again.', true);
-        console.error('PPTX export error:', err);
-      } finally {
-        pptxBtn.classList.remove('loading');
-        pptxBtn.querySelector('span').textContent = 'PPTX';
-      }
-    });
-  }
 });

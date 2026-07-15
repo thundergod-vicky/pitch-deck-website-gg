@@ -1623,5 +1623,273 @@ body {
   .reset-sector-btn {
     display: none !important;
   }
+
+  /* Hide modals in print */
+  .export-modal-overlay,
+  .export-progress-overlay {
+    display: none !important;
+  }
 }
 
+/* ================================================
+   EXPORT SECTOR SELECTION MODAL
+   ================================================ */
+.export-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.export-modal-overlay.visible {
+  opacity: 1;
+}
+
+.export-modal {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.18);
+  padding: 36px;
+  width: 100%;
+  max-width: 520px;
+  max-height: 90vh;
+  overflow-y: auto;
+  transform: translateY(20px) scale(0.97);
+  transition: transform 0.25s ease;
+}
+
+.export-modal-overlay.visible .export-modal {
+  transform: translateY(0) scale(1);
+}
+
+.export-modal-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.export-modal-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: rgba(255, 122, 0, 0.1);
+  border: 2px solid rgba(255, 122, 0, 0.25);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: var(--color-orange);
+  margin-bottom: 16px;
+}
+
+.export-modal-icon.pptx-mode {
+  background: rgba(208, 75, 21, 0.1);
+  border-color: rgba(208, 75, 21, 0.25);
+  color: #D04B15;
+}
+
+.export-modal-title {
+  font-family: var(--font-heading);
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--color-text-main);
+  margin: 0 0 8px;
+}
+
+.export-modal-subtitle {
+  font-size: 13.5px;
+  color: var(--color-text-muted);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.export-modal-sectors {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.export-sector-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  border: 1.5px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.export-sector-card:hover {
+  background: rgba(255, 122, 0, 0.06);
+  border-color: rgba(255, 122, 0, 0.4);
+  transform: translateX(4px);
+  box-shadow: 0 4px 16px rgba(255, 122, 0, 0.12);
+}
+
+.export-sector-all {
+  background: rgba(255, 122, 0, 0.05);
+  border-color: rgba(255, 122, 0, 0.3);
+}
+
+.export-sector-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid var(--glass-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+  color: var(--color-orange);
+}
+
+.export-sector-info {
+  flex: 1;
+}
+
+.export-sector-name {
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-text-main);
+  margin-bottom: 2px;
+}
+
+.export-sector-meta {
+  font-size: 11.5px;
+  color: var(--color-text-muted);
+}
+
+.export-sector-arrow {
+  color: var(--color-text-muted);
+  font-size: 14px;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.export-sector-card:hover .export-sector-arrow {
+  transform: translateX(4px);
+  color: var(--color-orange);
+}
+
+.export-modal-close {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1.5px solid var(--glass-border);
+  background: transparent;
+  font-family: var(--font-heading);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.export-modal-close:hover {
+  background: rgba(0,0,0,0.04);
+  color: var(--color-text-main);
+}
+
+/* ================================================
+   EXPORT PROGRESS OVERLAY
+   ================================================ */
+.export-progress-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9100;
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.export-progress-box {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 40px 48px;
+  text-align: center;
+  min-width: 320px;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.2);
+}
+
+.export-progress-spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid rgba(255, 122, 0, 0.15);
+  border-top-color: var(--color-orange);
+  border-radius: 50%;
+  animation: spin-export 0.8s linear infinite;
+  margin: 0 auto 20px;
+}
+
+@keyframes spin-export {
+  to { transform: rotate(360deg); }
+}
+
+.export-progress-title {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--color-text-main);
+  margin-bottom: 16px;
+}
+
+.export-progress-bar-wrap {
+  width: 100%;
+  height: 6px;
+  background: rgba(0,0,0,0.08);
+  border-radius: 99px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.export-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-orange), #FF9500);
+  border-radius: 99px;
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+.export-progress-label {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+/* Slide capture mode — temporarily overrides layout so html2canvas can see each slide */
+body.export-capture-mode .slideshow-container {
+  overflow: visible !important;
+  height: auto !important;
+}
+
+body.export-capture-mode .slide {
+  display: flex !important;
+  height: 100vh !important;
+  min-height: 720px !important;
+  scroll-snap-align: none !important;
+  margin-bottom: 0 !important;
+}

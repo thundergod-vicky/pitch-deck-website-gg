@@ -1417,6 +1417,89 @@
 
   </main>
 
+  <!-- ============================================================ -->
+  <!-- EXPORT SECTOR SELECTION MODAL                                -->
+  <!-- ============================================================ -->
+  <div class="export-modal-overlay" id="export-modal" style="display:none;" role="dialog" aria-modal="true" aria-label="Choose sector for export">
+    <div class="export-modal">
+      <div class="export-modal-header">
+        <div class="export-modal-icon" id="export-modal-icon">
+          <i class="bi bi-file-earmark-pdf-fill"></i>
+        </div>
+        <h3 class="export-modal-title">Export Pitch Deck</h3>
+        <p class="export-modal-subtitle">Select which sector's slides to include in the export</p>
+      </div>
+
+      <div class="export-modal-sectors">
+        <!-- All Common Slides -->
+        <button class="export-sector-card export-sector-all" data-export-sector="common">
+          <div class="export-sector-icon"><i class="bi bi-collection-fill"></i></div>
+          <div class="export-sector-info">
+            <div class="export-sector-name">All Common Slides</div>
+            <div class="export-sector-meta">Cover, About, Sales, Service, CRM, Booking</div>
+          </div>
+          <i class="bi bi-chevron-right export-sector-arrow"></i>
+        </button>
+
+        <!-- Restaurant -->
+        <button class="export-sector-card" data-export-sector="restaurant">
+          <div class="export-sector-icon text-orange"><i class="bi bi-egg-fried"></i></div>
+          <div class="export-sector-info">
+            <div class="export-sector-name">Restaurant (F&B)</div>
+            <div class="export-sector-meta">FOH Agents, BOH Yield & Legacy Sync</div>
+          </div>
+          <i class="bi bi-chevron-right export-sector-arrow"></i>
+        </button>
+
+        <!-- Real Estate -->
+        <button class="export-sector-card" data-export-sector="real-estate">
+          <div class="export-sector-icon text-blue"><i class="bi bi-house-door"></i></div>
+          <div class="export-sector-info">
+            <div class="export-sector-name">Real Estate</div>
+            <div class="export-sector-meta">MLS Integration & Voice Qualifying</div>
+          </div>
+          <i class="bi bi-chevron-right export-sector-arrow"></i>
+        </button>
+
+        <!-- Forestry -->
+        <button class="export-sector-card" data-export-sector="forestry">
+          <div class="export-sector-icon" style="color:#10B981"><i class="bi bi-tree"></i></div>
+          <div class="export-sector-info">
+            <div class="export-sector-name">Forestry & GIS</div>
+            <div class="export-sector-meta">LiDAR Mapping & Logistics ERP</div>
+          </div>
+          <i class="bi bi-chevron-right export-sector-arrow"></i>
+        </button>
+
+        <!-- Jewellery -->
+        <button class="export-sector-card" data-export-sector="jewellery">
+          <div class="export-sector-icon" style="color:#8B5CF6"><i class="bi bi-gem"></i></div>
+          <div class="export-sector-info">
+            <div class="export-sector-name">Jewellery ERP</div>
+            <div class="export-sector-meta">TryJewel Platform & PDF Blueprint</div>
+          </div>
+          <i class="bi bi-chevron-right export-sector-arrow"></i>
+        </button>
+      </div>
+
+      <button class="export-modal-close" id="export-modal-close" aria-label="Cancel">
+        <i class="bi bi-x-lg"></i> Cancel
+      </button>
+    </div>
+  </div>
+
+  <!-- Export Progress Overlay -->
+  <div class="export-progress-overlay" id="export-progress" style="display:none;">
+    <div class="export-progress-box">
+      <div class="export-progress-spinner"></div>
+      <div class="export-progress-title" id="export-progress-title">Generating export…</div>
+      <div class="export-progress-bar-wrap">
+        <div class="export-progress-bar" id="export-progress-bar"></div>
+      </div>
+      <div class="export-progress-label" id="export-progress-label">Preparing…</div>
+    </div>
+  </div>
+
   <script src="script.js"></script>
 </body>
 </html>
