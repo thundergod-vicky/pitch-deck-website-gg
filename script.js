@@ -348,6 +348,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3. Add capture-mode class so CSS unlocks the container
     document.body.classList.add('export-capture-mode');
 
+    // 4. Inject a temporary stylesheet to force remove background pseudo-element balls
+    const tempStyle = document.createElement('style');
+    tempStyle.id = 'temp-export-style';
+    tempStyle.innerHTML = '.slide::before, .slide::after { display: none !important; }';
+    document.head.appendChild(tempStyle);
+
     // Small delay to let CSS repaint
     await new Promise(r => setTimeout(r, 150));
 
@@ -360,6 +366,9 @@ document.addEventListener('DOMContentLoaded', () => {
     } finally {
       // --- Restore original display states ---
       document.body.classList.remove('export-capture-mode');
+      if (document.getElementById('temp-export-style')) {
+        document.getElementById('temp-export-style').remove();
+      }
       allSlideEls.forEach((s, i) => { s.style.display = originalDisplays[i]; });
       hideProgress();
     }
