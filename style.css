@@ -1629,6 +1629,12 @@ body {
   .export-progress-overlay {
     display: none !important;
   }
+
+  /* Hide background blur blobs in print */
+  .slide::before,
+  .slide::after {
+    display: none !important;
+  }
 }
 
 /* ================================================
@@ -1892,4 +1898,10 @@ body.export-capture-mode .slide {
   min-height: 720px !important;
   scroll-snap-align: none !important;
   margin-bottom: 0 !important;
+}
+
+/* Hide background blur blobs during export capture because html2canvas renders them as solid circles */
+body.export-capture-mode .slide::before,
+body.export-capture-mode .slide::after {
+  display: none !important;
 }
